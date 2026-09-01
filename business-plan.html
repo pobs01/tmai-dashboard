@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html class="scroll-smooth dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMAI — Business Plan & Investment Opportunity</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+        colors: {
+            "background": "#0F172A", "surface": "#0F172A", "surface-container": "#1E293B",
+            "surface-container-low": "#131C31", "surface-container-lowest": "#0F172A",
+            "text-muted": "#94A3B8", "secondary": "#00D1FF", "secondary-light": "#4cd7f6",
+            "gold": "#FBAD1B", "outline-variant": "#334155", "on-background": "#F8FAFC",
+            "on-primary-container": "#CBD5E1", "primary": "#FFFFFF", "error": "#ef4444",
+            "success": "#22c55e", "warning": "#eab308"
+        },
+        fontFamily: {
+            "display": ["Space Grotesk"], "body": ["Inter"],
+        }
+    }}
+}
+</script>
+<style>
+body { background: #0F172A; color: #F8FAFC; font-family: 'Inter', sans-serif; }
+.hero-gradient { background: linear-gradient(135deg, rgba(0,209,255,0.1) 0%, rgba(99,102,241,0.15) 50%, rgba(0,209,255,0.05) 100%); }
+.card { background: #131C31; border: 1px solid #334155; border-radius: 16px; padding: 28px; transition: all 0.3s; }
+.card:hover { border-color: rgba(0,209,255,0.3); transform: translateY(-4px); box-shadow: 0 0 30px rgba(0,209,255,0.1); }
+.card-secondary { background: #1E293B; border-color: rgba(0,209,255,0.3); }
+.badge-good { background: rgba(34,197,94,0.1); color: #22c55e; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge-bad { background: rgba(239,68,68,0.1); color: #ef4444; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge-partial { background: rgba(234,179,8,0.1); color: #eab308; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.section-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(0,209,255,0.1); color: #00D1FF; border-radius: 10px; font-weight: 700; font-size: 16px; margin-bottom: 12px; }
+.fin-bar { height: 28px; border-radius: 6px; background: linear-gradient(90deg, #00D1FF, #6366f1); }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<section class="min-h-screen flex items-center justify-center hero-gradient relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"></div>
+<div class="relative z-10 text-center max-w-3xl px-8">
+<div class="text-6xl md:text-8xl font-display font-bold mb-6"><span class="text-secondary">TMAI</span></div>
+<div class="text-xl md:text-2xl text-on-primary-container mb-4 font-display">Private AI Infrastructure for the SME Market</div>
+<div class="text-lg text-text-muted mb-8">Business Plan & Investment Opportunity — August 2026</div>
+<div class="inline-block bg-secondary/10 border border-secondary/20 px-6 py-2 rounded-full text-secondary font-semibold mb-12">Cognitive Sovereignty — Stop Renting AI. Own Your Intelligence.</div>
+<div class="text-sm text-text-muted">CONFIDENTIAL — For qualified investors only</div>
+</div>
+</section>
+
+<!-- ═══ EXECUTIVE SUMMARY ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">1</div>
+<h2 class="text-4xl font-display font-bold mb-12">Executive Summary</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="card"><div class="text-3xl font-bold text-secondary mb-2">$394B</div><div class="text-text-muted">Global AI Infrastructure market by 2030</div></div>
+<div class="card"><div class="text-3xl font-bold text-secondary mb-2">30×</div><div class="text-text-muted">Token cost increase since 2023 (EY)</div></div>
+<div class="card"><div class="text-3xl font-bold text-secondary mb-2">$5-10M</div><div class="text-text-muted">Seed round for hardware + team</div></div>
+</div>
+<div class="card card-secondary p-8">
+<p class="text-lg leading-relaxed">TMAI deploys <strong class="text-secondary">private AI infrastructure</strong> for small and medium businesses that cannot afford black-box cloud AI with unpredictable costs and data leakage risks. Our Glass Box architecture — on-premises NVIDIA hardware running open-weight LLMs — delivers zero data leakage, fixed CapEx, and unlimited agent loops at zero marginal cost.</p>
+<p class="text-lg leading-relaxed mt-4">Founded by <strong>Pete Brooke-Sumner</strong> (CEO TMI Digital, Google Partner), we bring 20+ years of digital marketing infrastructure experience and a built-in channel of 20+ client accounts to our go-to-market. The ask: <strong class="text-secondary">$5-10M Seed Round</strong> to procure NVIDIA hardware, build the engineering team, and launch in the South African SME market — path to <strong>R145M ARR by Year 3</strong>.</p>
+</div>
+</section>
+
+<!-- ═══ THE PROBLEM ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">2</div>
+<h2 class="text-4xl font-display font-bold mb-4">The Problem: Cloud AI Fragility</h2>
+<p class="text-lg text-text-muted mb-12 max-w-2xl">Every SME deploying cloud AI faces the same risks — and the costs are spiraling.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<div class="card border-error/30">
+<div class="flex items-center gap-3 mb-4"><span class="material-symbols-outlined text-error text-2xl">warning</span><h3 class="text-xl font-bold">IP Leakage</h3></div>
+<p class="text-text-muted">Training data sent to cloud providers becomes part of their future models, eroding your competitive advantage.</p>
+</div>
+<div class="card border-error/30">
+<div class="flex items-center gap-3 mb-4"><span class="material-symbols-outlined text-error text-2xl">trending_up</span><h3 class="text-xl font-bold">Unpredictable Costs</h3></div>
+<p class="text-text-muted">Per-token pricing creates opaque, ever-expanding bills. A single agentic interaction rose from <strong class="text-error">$0.04 (2023) → $1.20 (2026)</strong> — a 30x increase (EY). Goldman Sachs projects <strong>24× token consumption growth by 2030</strong>.</p>
+</div>
+<div class="card border-error/30">
+<div class="flex items-center gap-3 mb-4"><span class="material-symbols-outlined text-error text-2xl">shield</span><h3 class="text-xl font-bold">Regulatory Risk</h3></div>
+<p class="text-text-muted">POPIA/GDPR compliance is impossible when data crosses third-party boundaries. The BBC and BCS document the SME AI adoption gap — thin margins, scarce skills, no time to experiment.</p>
+</div>
+<div class="card border-error/30">
+<div class="flex items-center gap-3 mb-4"><span class="material-symbols-outlined text-error text-2xl">sync_problem</span><h3 class="text-xl font-bold">Model Drift</h3></div>
+<p class="text-text-muted">Black-box updates from cloud providers break production workflows without warning. No audit trail. No control.</p>
+</div>
+</div>
+<div class="card card-secondary p-8 text-center">
+<p class="text-xl italic text-on-primary-container">"The organisations writing AI risk mandates are the ones who need private infrastructure most."</p>
+<div class="mt-4 flex justify-center gap-4 flex-wrap">
+<div class="text-sm"><span class="text-error font-bold">80%</span> hidden losses behind every $1 of AI procurement</div>
+<div class="text-sm"><span class="text-error font-bold">320%</span> AI spend growth despite 90% lower token costs</div>
+<div class="text-sm"><span class="text-error font-bold">24×</span> projected token demand by 2030 (Goldman Sachs)</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ THE SOLUTION ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">3</div>
+<h2 class="text-4xl font-display font-bold mb-4">The Solution: Glass Box Architecture</h2>
+<p class="text-lg text-text-muted mb-4">Not a black box. Every decision traceable. Every weight yours. Every byte stays on your hardware.</p>
+<p class="text-base text-text-muted mb-12 italic">"Think of it like buying a generator instead of renting electricity. You pay once, you control the output, you never get surprise bills."</p>
+
+<h3 class="text-xl font-bold mb-6">6 Modules</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+<div class="card"><div class="text-secondary mb-3"><span class="material-symbols-outlined text-3xl">memory</span></div><h4 class="font-bold mb-2">Core Compute</h4><p class="text-sm text-text-muted">Optimized GPU clusters for LLM inference and training workloads.</p></div>
+<div class="card"><div class="text-secondary mb-3"><span class="material-symbols-outlined text-3xl">hub</span></div><h4 class="font-bold mb-2">Vector Hub</h4><p class="text-sm text-text-muted">Ultra-fast RAG retrieval for your entire document corpus.</p></div>
+<div class="card"><div class="text-secondary mb-3"><span class="material-symbols-outlined text-3xl">security</span></div><h4 class="font-bold mb-2">Guardrails</h4><p class="text-sm text-text-muted">Automated PII filtering and hallucination detection built into every model call.</p></div>
+<div class="card"><div class="text-secondary mb-3"><span class="material-symbols-outlined text-3xl">dashboard</span></div><h4 class="font-bold mb-2">Control Plane</h4><p class="text-sm text-text-muted">Unified dashboard for managing model versions, fine-tuning, and users.</p></div>
+<div class="card border-secondary/30"><div class="text-secondary mb-3"><span class="material-symbols-outlined text-3xl">smart_toy</span></div><h4 class="font-bold mb-2">Agentic Runtime</h4><p class="text-sm text-text-muted">Purpose-built for AI agents that think, loop, and act. Unlimited loops at zero marginal cost.</p></div>
+<div class="card border-secondary/30"><div class="text-secondary mb-3"><span class="material-symbols-outlined text-3xl">monitoring</span></div><h4 class="font-bold mb-2">Cost Intelligence</h4><p class="text-sm text-text-muted">Built-in token tracking and cost comparison. See exactly what private infrastructure saves vs cloud APIs.</p></div>
+</div>
+
+<h3 class="text-xl font-bold mb-6">3 Hardware Tiers</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="card border-secondary/30 relative"><div class="absolute top-3 right-3 bg-secondary text-background text-xs font-bold px-2 py-1 rounded">STARTER</div><h4 class="font-bold mb-1">ASUS Ascent GX10</h4><p class="text-sm text-text-muted mb-3">NVIDIA GB10 Grace Blackwell — $2,999</p><ul class="text-sm text-text-muted space-y-1"><li>1 petaflop AI performance</li><li>128GB unified memory</li><li>Runs 7B–70B parameter models</li></ul></div>
+<div class="card"><h4 class="font-bold mb-1">DGX Station A100</h4><p class="text-sm text-text-muted mb-3">A100 80GB × 4 GPUs — $100-120K</p><ul class="text-sm text-text-muted space-y-1"><li>2.5 petaflops AI performance</li><li>320GB total GPU memory</li><li>Multi-model concurrent inference</li></ul></div>
+<div class="card"><h4 class="font-bold mb-1">Multi-Node Cluster</h4><p class="text-sm text-text-muted mb-3">Scalable GPU Fabric</p><ul class="text-sm text-text-muted space-y-1"><li>InfiniBand interconnect</li><li>Load balancing + auto failover</li><li>Multi-tenant isolation</li></ul></div>
+</div>
+</section>
+
+<!-- ═══ MARKET ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">4</div>
+<h2 class="text-4xl font-display font-bold mb-12">Market Opportunity</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="card text-center"><div class="text-sm text-text-muted mb-2">TAM</div><div class="text-4xl font-bold text-secondary mb-1">$394B</div><div class="text-sm text-text-muted">Global AI Infrastructure by 2030</div></div>
+<div class="card text-center"><div class="text-sm text-text-muted mb-2">SAM</div><div class="text-4xl font-bold text-secondary mb-1">$15-25B</div><div class="text-sm text-text-muted">SME Private AI Segment</div></div>
+<div class="card text-center"><div class="text-sm text-text-muted mb-2">SOM</div><div class="text-4xl font-bold text-secondary mb-1">5.5M+</div><div class="text-sm text-text-muted">SA SMEs (entry market)</div></div>
+</div>
+<div class="card card-secondary p-8">
+<h3 class="text-xl font-bold text-secondary mb-4">Why Now</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex gap-3"><span class="material-symbols-outlined text-secondary">check_circle</span><span class="text-sm">Token costs up <strong>30×</strong> since 2023 (EY)</span></div>
+<div class="flex gap-3"><span class="material-symbols-outlined text-secondary">check_circle</span><span class="text-sm">24× token consumption projected by 2030 (Goldman Sachs)</span></div>
+<div class="flex gap-3"><span class="material-symbols-outlined text-secondary">check_circle</span><span class="text-sm">ASUS GX10 at $2,999 makes entry affordable</span></div>
+<div class="flex gap-3"><span class="material-symbols-outlined text-secondary">check_circle</span><span class="text-sm">Microsoft investing <strong>$329M</strong> in SA AI infrastructure</span></div>
+<div class="flex gap-3"><span class="material-symbols-outlined text-secondary">check_circle</span><span class="text-sm">Refiant AI (SA-based) raised <strong>$5M</strong> — investor appetite proven</span></div>
+<div class="flex gap-3"><span class="material-symbols-outlined text-secondary">check_circle</span><span class="text-sm">SA government targeting Jan 2027 for revised AI policy</span></div>
+</div>
+</div>
+</section>
+
+<!-- ═══ BUSINESS MODEL ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">5</div>
+<h2 class="text-4xl font-display font-bold mb-12">Business Model</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="card border-secondary/30"><div class="text-sm text-secondary font-semibold mb-2">STREAM 01</div><h3 class="text-xl font-bold mb-3">Private LLM Hosting</h3><p class="text-sm text-text-muted mb-4">On-prem or local data centre deployment for SMEs — legal, healthcare, finance.</p><div class="text-2xl font-bold text-secondary mb-1">R15-75K</div><div class="text-sm text-text-muted">per month per client</div></div>
+<div class="card border-secondary/30"><div class="text-sm text-secondary font-semibold mb-2">STREAM 02</div><h3 class="text-xl font-bold mb-3">TMI Digital Integration</h3><p class="text-sm text-text-muted mb-4">Private LLM automates reporting, auditing, campaign optimization for 20+ existing clients.</p><div class="text-2xl font-bold text-secondary mb-1">R20-50K</div><div class="text-sm text-text-muted">per client add-on retainer</div></div>
+<div class="card border-secondary/30"><div class="text-sm text-secondary font-semibold mb-2">STREAM 03</div><h3 class="text-xl font-bold mb-3">Subscription Platform</h3><p class="text-sm text-text-muted mb-4">Tiered SaaS with model hosting, RAG, guardrails, and control plane dashboard.</p><div class="text-2xl font-bold text-secondary mb-1">R5-75K</div><div class="text-sm text-text-muted">Starter → Enterprise tiers</div></div>
+</div>
+<div class="card p-8">
+<h3 class="text-xl font-bold mb-6">Unit Economics</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+<div><div class="text-2xl font-bold text-secondary">$2,999</div><div class="text-sm text-text-muted">GX10 unit cost</div></div>
+<div><div class="text-2xl font-bold text-secondary">$1.5-4.3K</div><div class="text-sm text-text-muted">Monthly revenue per unit</div></div>
+<div><div class="text-2xl font-bold text-secondary">3-8 months</div><div class="text-sm text-text-muted">Payback period</div></div>
+<div><div class="text-2xl font-bold text-secondary">&lt;12 months</div><div class="text-sm text-text-muted">CAC payback</div></div>
+</div>
+</div>
+</section>
+
+<!-- ═══ GTM ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">6</div>
+<h2 class="text-4xl font-display font-bold mb-12">Go-to-Market</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<div class="card text-center"><div class="text-3xl font-bold text-secondary mb-2">Phase 1</div><div class="text-sm text-text-muted mb-2">Months 1-6</div><p class="text-sm">Deploy hardware, TMI Digital integration (20 existing clients), launch case study</p></div>
+<div class="card text-center"><div class="text-3xl font-bold text-secondary mb-2">Phase 2</div><div class="text-sm text-text-muted mb-2">Months 6-12</div><p class="text-sm">SA SME market — legal, healthcare, finance — 50 clients</p></div>
+<div class="card text-center"><div class="text-3xl font-bold text-secondary mb-2">Phase 3</div><div class="text-sm text-text-muted mb-2">Months 12-24</div><p class="text-sm">Scale to broader Africa — 200+ clients, multi-node clusters</p></div>
+<div class="card text-center"><div class="text-3xl font-bold text-secondary mb-2">Phase 4</div><div class="text-sm text-text-muted mb-2">Months 24-36</div><p class="text-sm">Pan-African expansion, white-labeling for MSPs</p></div>
+</div>
+<div class="card p-8">
+<h3 class="text-xl font-bold mb-4">Target Segments</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="text-center"><div class="text-3xl mb-2">⚖️</div><div class="font-semibold text-sm">Legal Firms</div><div class="text-xs text-text-muted">Contract analysis & due diligence</div></div>
+<div class="text-center"><div class="text-3xl mb-2">🏥</div><div class="font-semibold text-sm">Healthcare</div><div class="text-xs text-text-muted">Clinical data analysis, POPIA-compliant</div></div>
+<div class="text-center"><div class="text-3xl mb-2">🏦</div><div class="font-semibold text-sm">Financial Services</div><div class="text-xs text-text-muted">Audit reports & compliance</div></div>
+<div class="text-center"><div class="text-3xl mb-2">📊</div><div class="font-semibold text-sm">Marketing Agencies</div><div class="text-xs text-text-muted">Reporting, auditing, creative</div></div>
+</div>
+</div>
+</section>
+
+<!-- ═══ COMPETITIVE ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">7</div>
+<h2 class="text-4xl font-display font-bold mb-12">Competitive Landscape</h2>
+<div class="overflow-x-auto rounded-xl border border-outline-variant">
+<table class="w-full text-left">
+<thead><tr class="bg-surface-container text-primary">
+<th class="p-4 font-semibold">Capability</th>
+<th class="p-4 font-semibold text-secondary">TMAI Glass Box</th>
+<th class="p-4 font-semibold text-error">Cloud APIs</th>
+<th class="p-4 font-semibold">MSP Private AI</th>
+<th class="p-4 font-semibold">DIY Self-Host</th>
+</tr></thead>
+<tbody class="divide-y divide-outline-variant">
+<tr><td class="p-4 font-bold">Data Privacy</td><td class="p-4"><span class="badge-good">✓ Total Sovereignty</span></td><td class="p-4"><span class="badge-bad">✗ Third-party</span></td><td class="p-4"><span class="badge-partial">~ Partial</span></td><td class="p-4"><span class="badge-good">✓ Full</span></td></tr>
+<tr><td class="p-4 font-bold">Cost Predictability</td><td class="p-4"><span class="badge-good">✓ Fixed CapEx</span></td><td class="p-4"><span class="badge-bad">✗ Per-token</span></td><td class="p-4"><span class="badge-partial">~ Semi-predictable</span></td><td class="p-4"><span class="badge-good">✓ Fixed</span></td></tr>
+<tr><td class="p-4 font-bold">Model Ownership</td><td class="p-4"><span class="badge-good">✓ Full IP</span></td><td class="p-4"><span class="badge-bad">✗ Rental only</span></td><td class="p-4"><span class="badge-partial">~ Limited</span></td><td class="p-4"><span class="badge-good">✓ Full</span></td></tr>
+<tr><td class="p-4 font-bold">Compliance</td><td class="p-4"><span class="badge-good">✓ Sector-specific</span></td><td class="p-4"><span class="badge-bad">✗ Generic</span></td><td class="p-4"><span class="badge-partial">~ Provider-dependent</span></td><td class="p-4"><span class="badge-good">✓ Self-managed</span></td></tr>
+<tr><td class="p-4 font-bold">Transparency</td><td class="p-4"><span class="badge-good">✓ Glass Box audit</span></td><td class="p-4"><span class="badge-bad">✗ Black box</span></td><td class="p-4"><span class="badge-partial">~ Limited</span></td><td class="p-4"><span class="badge-good">✓ Full</span></td></tr>
+<tr><td class="p-4 font-bold">Managed Service</td><td class="p-4"><span class="badge-good">✓ Fully managed</span></td><td class="p-4"><span class="badge-good">✓ API</span></td><td class="p-4"><span class="badge-good">✓ Yes</span></td><td class="p-4"><span class="badge-bad">✗ DIY</span></td></tr>
+<tr><td class="p-4 font-bold">Agent Loops</td><td class="p-4"><span class="badge-good">✓ Zero marginal</span></td><td class="p-4"><span class="badge-bad">✗ 24× cost</span></td><td class="p-4"><span class="badge-partial">~ Per-call</span></td><td class="p-4"><span class="badge-good">✓ Zero</span></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ═══ FINANCIALS ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">8</div>
+<h2 class="text-4xl font-display font-bold mb-12">Financial Projections</h2>
+<div class="overflow-x-auto rounded-xl border border-outline-variant mb-8">
+<table class="w-full text-left">
+<thead><tr class="bg-surface-container">
+<th class="p-4">Metric</th><th class="p-4 text-secondary">Year 1</th><th class="p-4 text-secondary">Year 2</th><th class="p-4 text-secondary">Year 3</th>
+</tr></thead>
+<tbody class="divide-y divide-outline-variant">
+<tr><td class="p-4 font-bold">Clients</td><td class="p-4">25</td><td class="p-4">75</td><td class="p-4">200</td></tr>
+<tr><td class="p-4 font-bold">MRR</td><td class="p-4">R1.25M</td><td class="p-4">R3.75M</td><td class="p-4">R10M</td></tr>
+<tr><td class="p-4 font-bold">ARR</td><td class="p-4">R15M</td><td class="p-4">R45M</td><td class="p-4">R120M</td></tr>
+<tr><td class="p-4 font-bold">Hardware Revenue</td><td class="p-4">R5M</td><td class="p-4">R10M</td><td class="p-4">R25M</td></tr>
+<tr><td class="p-4 font-bold">Total Revenue</td><td class="p-4 font-bold text-secondary">R20M</td><td class="p-4 font-bold text-secondary">R55M</td><td class="p-4 font-bold text-secondary">R145M</td></tr>
+<tr><td class="p-4 font-bold">COGS</td><td class="p-4">R7M (35%)</td><td class="p-4">R16.5M (30%)</td><td class="p-4">R34.5M (24%)</td></tr>
+<tr><td class="p-4 font-bold">Gross Profit</td><td class="p-4 text-success">R13M (65%)</td><td class="p-4 text-success">R38.5M (70%)</td><td class="p-4 text-success">R110.5M (76%)</td></tr>
+<tr><td class="p-4 font-bold">OpEx</td><td class="p-4">R12M</td><td class="p-4">R22M</td><td class="p-4">R45M</td></tr>
+<tr><td class="p-4 font-bold">Net Income</td><td class="p-4">R1M</td><td class="p-4 text-success">R16.5M</td><td class="p-4 text-success">R65.5M</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ═══ USE OF FUNDS ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">9</div>
+<h2 class="text-4xl font-display font-bold mb-4">Use of Funds</h2>
+<p class="text-lg text-text-muted mb-12">$5-10M Seed Round</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="card p-8">
+<h3 class="text-xl font-bold text-secondary mb-6">$5M (Minimum Viable)</h3>
+<div class="space-y-4">
+<div><div class="flex justify-between text-sm"><span>Hardware Procurement</span><span class="text-secondary font-bold">$2M (40%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:40%"></div></div></div>
+<div><div class="flex justify-between text-sm"><span>Engineering Team</span><span class="text-secondary font-bold">$1.25M (25%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:25%"></div></div></div>
+<div><div class="flex justify-between text-sm"><span>Sales & Marketing</span><span class="text-secondary font-bold">$750K (15%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:15%"></div></div></div>
+<div><div class="flex justify-between text-sm"><span>Operations & Legal</span><span class="text-secondary font-bold">$500K (10%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:10%"></div></div></div>
+<div><div class="flex justify-between text-sm"><span>Working Capital</span><span class="text-secondary font-bold">$500K (10%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:10%"></div></div></div>
+</div>
+</div>
+<div class="card card-secondary p-8">
+<h3 class="text-xl font-bold text-secondary mb-6">$10M (Optimal)</h3>
+<div class="space-y-4">
+<div><div class="flex justify-between text-sm"><span>Hardware Procurement</span><span class="text-secondary font-bold">$3.5M (35%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:35%"></div></div></div>
+<div><div class="flex justify-between text-sm"><span>Engineering Team</span><span class="text-secondary font-bold">$2.5M (25%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:25%"></div></div></div>
+<div><div class="flex justify-between text-sm"><span>Sales & Marketing</span><span class="text-secondary font-bold">$1.5M (15%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:15%"></div></div></div>
+<div><div class="flex justify-between text-sm"><span>Operations & Legal</span><span class="text-secondary font-bold">$1M (10%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:10%"></div></div></div>
+<div><div class="flex justify-between text-sm"><span>Working Capital (18mo runway)</span><span class="text-secondary font-bold">$1.5M (15%)</span></div><div class="mt-1 h-3 bg-surface-container rounded-full"><div class="fin-bar" style="width:15%"></div></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ TEAM ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">10</div>
+<h2 class="text-4xl font-display font-bold mb-12">Team & Advisors</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div class="card card-secondary p-8">
+<div class="text-2xl font-bold text-secondary mb-1">Pete Brooke-Sumner</div>
+<div class="text-sm text-text-muted mb-4">CEO & Founder</div>
+<ul class="text-sm text-text-muted space-y-2">
+<li>Founder TMI Digital / TMAI</li>
+<li>20+ years digital marketing infrastructure</li>
+<li>Google Partner (MCC 9060186325)</li>
+<li>Manages 20+ client accounts</li>
+<li>Built TMAI Glass Box architecture</li>
+</ul>
+</div>
+<div class="card p-8">
+<h3 class="text-xl font-bold mb-4">Key Hires Needed</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary">person_add</span><div><div class="font-semibold">CTO</div><div class="text-sm text-text-muted">ML/AI infrastructure expertise</div></div></div>
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary">person_add</span><div><div class="font-semibold">Head of Sales</div><div class="text-sm text-text-muted">Africa expansion</div></div></div>
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary">person_add</span><div><div class="font-semibold">Lead ML Engineer</div><div class="text-sm text-text-muted">Model optimization & RAG pipelines</div></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══ RISKS ═══ -->
+<section class="py-20 px-8 max-w-6xl mx-auto">
+<div class="section-num">11</div>
+<h2 class="text-4xl font-display font-bold mb-12">Risk Analysis</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="card border-error/30"><div class="flex items-center gap-2 mb-3"><span class="badge-bad">HIGH</span><h4 class="font-bold">Hardware Supply Chain</h4></div><p class="text-sm text-text-muted">GPU backlogs and pricing volatility.</p><div class="mt-3 text-xs text-success">→ Order from multiple vendors; GX10 ships Aug 2026; DGX available via DataSciences Corp (SA)</div></div>
+<div class="card border-warning/30"><div class="flex items-center gap-2 mb-3"><span class="badge-partial">MEDIUM</span><h4 class="font-bold">Competition from Hyperscalers</h4></div><p class="text-sm text-text-muted">Cloud providers may enter private infrastructure market.</p><div class="mt-3 text-xs text-success">→ First-mover advantage in SA SME market; regulatory compliance moat</div></div>
+<div class="card border-warning/30"><div class="flex items-center gap-2 mb-3"><span class="badge-partial">MEDIUM</span><h4 class="font-bold">Customer Education</h4></div><p class="text-sm text-text-muted">SMEs may not understand private AI value proposition.</p><div class="mt-3 text-xs text-success">→ Leverage existing TMI Digital client trust; case studies; ROI demos</div></div>
+<div class="card border-error/30"><div class="flex items-center gap-2 mb-3"><span class="badge-bad">HIGH</span><h4 class="font-bold">Talent Shortage</h4></div><p class="text-sm text-text-muted">ML engineers and DevOps talent are scarce.</p><div class="mt-3 text-xs text-success">→ Remote team; competitive comp; SA has strong ML pool (Refiant AI proof)</div></div>
+<div class="card"><div class="flex items-center gap-2 mb-3"><span class="badge-partial">LOW-MED</span><h4 class="font-bold">Regulatory Uncertainty</h4></div><p class="text-sm text-text-muted">SA AI policy pending.</p><div class="mt-3 text-xs text-success">→ SA AI policy targeted Jan 2027; POPIA already established; compliance-first design</div></div>
+<div class="card"><div class="flex items-center gap-2 mb-3"><span class="badge-partial">LOW</span><h4 class="font-bold">Token Cost Deflation</h4></div><p class="text-sm text-text-muted">Lower token prices could reduce urgency.</p><div class="mt-3 text-xs text-success">→ Volume growth (24×) drives total spend up (Jevons Paradox); private infra still wins on predictability</div></div>
+</div>
+</section>
+
+<!-- ═══ CLOSING ═══ -->
+<section class="py-20 px-8 max-w-4xl mx-auto text-center hero-gradient rounded-2xl border border-secondary/20">
+<div class="section-num">12</div>
+<h2 class="text-4xl font-display font-bold mb-6">The Ask</h2>
+<div class="text-5xl font-bold text-secondary mb-4">$5-10M</div>
+<div class="text-lg text-text-muted mb-8">Seed Round — Hardware Procurement + Team Build + GTM Launch</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="card text-center"><div class="text-2xl font-bold text-secondary">R145M</div><div class="text-sm text-text-muted">Projected ARR by Year 3</div></div>
+<div class="card text-center"><div class="text-2xl font-bold text-secondary">45%</div><div class="text-sm text-text-muted">Net Margin by Year 3</div></div>
+<div class="card text-center"><div class="text-2xl font-bold text-secondary">&gt;4:1</div><div class="text-sm text-text-muted">LTV:CAC Ratio</div></div>
+</div>
+<p class="text-lg italic text-on-primary-container mb-8">"Every SME deserves cognitive sovereignty. TMAI makes private AI infrastructure accessible, affordable, and transparent — the Glass Box standard for the African market and beyond."</p>
+<a href="mailto:ceo@tmai.ltd" class="inline-flex items-center gap-2 bg-secondary text-background font-bold px-10 py-4 rounded-lg text-lg hover:translate-y-[-2px] transition-all shadow-lg shadow-secondary/20">Schedule a Demo <span class="material-symbols-outlined">arrow_forward</span></a>
+</section>
+
+<footer class="py-12 px-8 text-center border-t border-outline-variant mt-12">
+<p class="text-text-muted text-sm">TMAI (tmai.ltd) — Private AI Infrastructure | Pete Brooke-Sumner, CEO | ceo@tmai.ltd</p>
+<p class="text-text-muted text-xs mt-2">Live dashboard: tmai.ltd/tmai-dashboard.html | Aria LLM monitor: aria-monitor.thevisualvoid.co.za</p>
+</footer>
+
+</body>
+</html>

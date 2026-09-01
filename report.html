@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="scroll-smooth dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report — TMAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: { extend: { colors: { "background": "#0F172A", "surface": "#0F172A", "surface-container": "#1E293B", "surface-container-low": "#131C31", "text-muted": "#94A3B8", "secondary": "#00D1FF", "outline-variant": "#334155", "on-background": "#F8FAFC", "primary": "#FFFFFF", "error": "#ef4444", "success": "#22c55e" }, fontFamily: { "display-lg": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "body-lg": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"] } } }
+}
+</script>
+<style>
+body { background: #0F172A; color: #F8FAFC; font-family: 'Inter', sans-serif; }
+.loading-dots::after { content: '...'; animation: dots 1.5s infinite; }
+@keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60%, 100% { content: '...'; } }
+.report-content h1 { font-size: 1.5rem; font-weight: 700; color: #00D1FF; margin: 1.5rem 0 0.75rem; }
+.report-content h2 { font-size: 1.25rem; font-weight: 600; color: #F8FAFC; margin: 1.25rem 0 0.5rem; }
+.report-content h3 { font-size: 1rem; font-weight: 600; color: #94A3B8; margin: 1rem 0 0.5rem; }
+.report-content strong { color: #00D1FF; }
+.report-content table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.report-content th, .report-content td { border: 1px solid #334155; padding: 8px 12px; text-align: left; font-size: 0.875rem; }
+.report-content th { background: #131C31; color: #00D1FF; font-weight: 600; }
+.report-content td { color: #F8FAFC; }
+.report-content ul, .report-content ol { margin: 0.5rem 0; padding-left: 1.5rem; }
+.report-content li { margin: 0.25rem 0; }
+.btn-download { background: rgba(0,209,255,0.1); border: 1px solid rgba(0,209,255,0.3); color: #00D1FF; padding: 8px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-download:hover { background: rgba(0,209,255,0.2); }
+.btn-new { background: rgba(255,255,255,0.05); border: 1px solid #334155; color: #94A3B8; padding: 8px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-new:hover { color: #F8FAFC; background: rgba(255,255,255,0.1); }
+</style>
+</head>
+<body>
+<div class="min-h-screen flex flex-col">
+<!-- Header -->
+<div class="border-b border-outline-variant px-6 py-4 bg-surface-container-low">
+<div class="max-w-4xl mx-auto flex items-center justify-between">
+<div>
+<div class="text-xs text-text-muted uppercase tracking-wider">TMAI <span class="text-secondary">Report</span></div>
+<div id="reportTitle" class="font-display-lg text-lg font-bold mt-1">Generating<span class="loading-dots"></span></div>
+<div id="reportMeta" class="text-sm text-text-muted mt-1"></div>
+</div>
+<div class="flex gap-2">
+<button onclick="downloadReport()" id="btnDownload" class="btn-download hidden">
+<span class="material-symbols-outlined" style="font-size:16px">download</span> Download
+</button>
+<a href="/prompts" class="btn-new">
+<span class="material-symbols-outlined" style="font-size:16px">arrow_back</span> Back to Prompts
+</a>
+</div>
+</div>
+</div>
+
+<!-- Report Content -->
+<div class="flex-1 overflow-auto p-6">
+<div class="max-w-4xl mx-auto">
+<!-- Loading State -->
+<div id="loadingState" class="flex flex-col items-center justify-center py-20">
+<div class="material-symbols-outlined text-secondary text-5xl mb-4" style="animation: spin 1s linear infinite;">progress_activity</div>
+<div class="text-lg font-semibold text-primary">Generating report<span class="loading-dots"></span></div>
+<div id="loadingStatus" class="text-sm text-text-muted mt-2">Fetching account data...</div>
+<div class="mt-6 grid grid-cols-2 gap-4 max-w-lg w-full">
+<div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant">
+<div class="text-xs text-text-muted uppercase">Channel</div>
+<div id="loadChannel" class="text-sm font-semibold text-primary mt-1">—</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant">
+<div class="text-xs text-text-muted uppercase">Date Range</div>
+<div id="loadDateRange" class="text-sm font-semibold text-primary mt-1">—</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant">
+<div class="text-xs text-text-muted uppercase">Account</div>
+<div id="loadAccount" class="text-sm font-semibold text-primary mt-1">—</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant">
+<div class="text-xs text-text-muted uppercase">Account ID</div>
+<div id="loadAccountId" class="text-sm font-semibold text-primary mt-1">—</div>
+</div>
+</div>
+</div>
+
+<!-- Error State -->
+<div id="errorState" class="hidden flex flex-col items-center justify-center py-20">
+<div class="material-symbols-outlined text-error text-5xl mb-4">error_outline</div>
+<div class="text-lg font-semibold text-primary">Report failed</div>
+<div id="errorMessage" class="text-sm text-text-muted mt-2"></div>
+<button onclick="retryReport()" class="btn-download mt-4">
+<span class="material-symbols-outlined" style="font-size:16px">refresh</span> Retry
+</button>
+</div>
+
+<!-- Report State -->
+<div id="reportState" class="hidden">
+<div class="prose prose-invert max-w-none">
+<div id="reportContent" class="report-content"></div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant flex items-center justify-between">
+<div class="text-xs text-text-muted" id="reportGenerated"></div>
+<div class="flex gap-2">
+<button onclick="copyReport()" class="btn-download">
+<span class="material-symbols-outlined" style="font-size:16px">content_copy</span> Copy
+</button>
+<button onclick="downloadReport()" class="btn-download">
+<span class="material-symbols-outlined" style="font-size:16px">download</span> Download
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<style>
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+
+<script>
+// Get params from URL
+const params = new URLSearchParams(window.location.search);
+const promptId = params.get('prompt');
+const channelId = params.get('channel');
+const accountId = params.get('accountId');
+const accountName = params.get('account');
+const dateRange = params.get('dateRange');
+const days = params.get('days') || '7';
+const promptName = params.get('promptName');
+const category = params.get('category');
+const promptText = params.get('prompt') || '';
+
+let reportText = '';
+
+// Update loading UI
+function updateLoadingUI(status) {
+  if (status) document.getElementById('loadingStatus').textContent = status;
+  document.getElementById('loadChannel').textContent = channelId || 'Google Ads';
+  document.getElementById('loadDateRange').textContent = dateRange || `Last ${days} days`;
+  document.getElementById('loadAccount').textContent = accountName || '—';
+  document.getElementById('loadAccountId').textContent = accountId || '—';
+}
+
+// Show error
+function showError(message) {
+  document.getElementById('loadingState').classList.add('hidden');
+  document.getElementById('errorState').classList.remove('hidden');
+  document.getElementById('errorMessage').textContent = message;
+}
+
+// Retry
+function retryReport() {
+  document.getElementById('errorState').classList.add('hidden');
+  document.getElementById('loadingState').classList.remove('hidden');
+  generateReport();
+}
+
+// Copy report
+function copyReport() {
+  navigator.clipboard.writeText(reportText).then(() => {
+    const btn = event.target.closest('button');
+    const original = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px">check</span> Copied!';
+    setTimeout(() => { btn.innerHTML = original; }, 2000);
+  });
+}
+
+// Download report as text file
+function downloadReport() {
+  const blob = new Blob([reportText], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${accountName || 'report'}_${channelId || 'google-ads'}_${dateRange || days}days.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Generate report
+async function generateReport() {
+  updateLoadingUI();
+  document.getElementById('loadingStatus').textContent = 'Fetching account data...';
+
+  try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 60000);
+      updateLoadingUI();
+      document.getElementById('loadingStatus').textContent = 'Fetching account data...';
+
+      const statusSteps = ['Fetching account data...', 'Running API queries...', 'Generating expert report with Gemini...', 'Almost done...'];
+      let statusIdx = 0;
+      const statusInterval = setInterval(() => {
+        statusIdx++;
+        if (statusIdx < statusSteps.length) {
+          document.getElementById('loadingStatus').textContent = statusSteps[statusIdx];
+        }
+      }, 4000);
+
+      const res = await fetch('/.netlify/functions/run-prompt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: promptText,
+          promptName: promptName || 'Analysis',
+          account: accountName || 'Unknown',
+          accountId: accountId || '',
+          channel: channelId || 'Google Ads',
+          category: category || '',
+          dateRange: dateRange || `last ${days} days`,
+          days: days
+        }),
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+      clearInterval(statusInterval);
+
+      if (!res.ok) throw new Error(`Server error (${res.status})`);
+      const text = await res.text();
+      if (!text.startsWith('{')) throw new Error('Invalid response from server — it may have timed out. Please try again.');
+      const data = JSON.parse(text);
+    
+    if (!data.ok) {
+      throw new Error(data.error || data.detail || 'Unknown error');
+    }
+
+    reportText = data.report || 'No report generated';
+    
+    // Update title
+    document.getElementById('reportTitle').textContent = promptName || 'Report';
+    document.getElementById('reportMeta').textContent = `${accountName || 'Account'} (${accountId || 'ID'}) — ${channelId || 'Channel'} — ${dateRange || days} days`;
+
+    // Render markdown (Gemini returns clean markdown)
+    let html = reportText
+      .replace(/&/g, '&amp;')
+      .replace(/\</g, '&lt;')
+      .replace(/\>/g, '&gt;')
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br>');
+    
+    // Wrap consecutive list items in ul
+    html = html.replace(/(<li>.*?<\/li>)/gs, (match) => `<ul>${match}</ul>`);
+    html = html.replace(/<\/ul><ul>/g, '');
+    if (!html.startsWith('<p>')) html = '<p>' + html;
+    if (!html.endsWith('</p>')) html = html + '</p>';
+
+    document.getElementById('reportContent').innerHTML = html;
+    document.getElementById('reportGenerated').textContent = `Generated: ${new Date().toLocaleString()}`;
+
+    // Show report
+    document.getElementById('loadingState').classList.add('hidden');
+    document.getElementById('reportState').classList.remove('hidden');
+    document.getElementById('btnDownload').classList.remove('hidden');
+
+  } catch (err) {
+    console.error('Report error:', err);
+    showError(err.message || 'Failed to generate report');
+  }
+}
+
+// Start
+generateReport();
+</script>
+</body>
+</html>

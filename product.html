@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Overview — TMAI</title>
+    <meta name="description" content="Private AI infrastructure for businesses that need control. Hardware, models, APIs, and management — all wrapped in enterprise-grade safety boundaries.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0b; --bg-card: #111113; --text: #f5f5f7;
+            --text-secondary: #a1a1a6; --text-muted: #6e6e73;
+            --accent: #6366f1; --accent-hover: #818cf8;
+            --gold: #FBAD1B; --teal: #008398;
+            --border: rgba(255,255,255,0.06);
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+        nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; background:rgba(10,10,11,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+        .logo { font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:700; color:var(--text); text-decoration:none; }
+        .logo span { background:var(--gradient-1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .nav-links { display:flex; gap:2rem; align-items:center; }
+        .nav-links a { color:var(--text-secondary); text-decoration:none; font-size:0.9rem; font-weight:500; transition:color 0.2s; }
+        .nav-links a:hover { color:var(--text); }
+        .nav-cta { padding:0.5rem 1.25rem; background:var(--accent); color:#fff !important; border-radius:100px; font-weight:600; }
+        section { padding:6rem 2rem 4rem; max-width:1000px; margin:0 auto; }
+        .section-label { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:1rem; }
+        .section-label::before { content:''; width:24px; height:2px; background:var(--accent); }
+        h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; letter-spacing:-0.02em; margin-bottom:1rem; }
+        h2 { font-family:'Space Grotesk',sans-serif; font-size:1.75rem; font-weight:700; margin-bottom:0.75rem; margin-top:3rem; }
+        p { color:var(--text-secondary); margin-bottom:1rem; }
+        .hero-section { min-height:60vh; display:flex; flex-direction:column; justify-content:center; padding-top:8rem; }
+        .hero-section h1 .gradient-text { background:var(--gradient-1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:2rem; }
+        .card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem; }
+        .card h3 { font-family:'Space Grotesk',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; }
+        .card p { font-size:0.9rem; margin-bottom:0; }
+        .card-icon { font-size:1.5rem; margin-bottom:0.75rem; }
+        .tier-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:2rem; }
+        .tier { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:2rem; }
+        .tier.featured { border-color:var(--accent); }
+        .tier h3 { font-family:'Space Grotesk',sans-serif; font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; }
+        .tier .price { font-size:2rem; font-weight:800; margin:1rem 0; }
+        .tier ul { list-style:none; margin-top:1rem; }
+        .tier li { padding:0.5rem 0; font-size:0.9rem; color:var(--text-secondary); border-bottom:1px solid rgba(255,255,255,0.04); }
+        .tier li::before { content:'✓ '; color:#22c55e; font-weight:700; }
+        .stack { display:flex; flex-direction:column; gap:1rem; margin-top:2rem; }
+        .stack-layer { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem 2rem; display:flex; align-items:center; gap:1.5rem; }
+        .stack-num { font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:800; background:var(--gradient-1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; min-width:50px; }
+        .stack-layer h3 { font-size:1rem; font-weight:700; margin-bottom:0.25rem; }
+        .stack-layer p { font-size:0.85rem; margin:0; }
+        .cta-section { text-align:center; padding:4rem 2rem; background:linear-gradient(180deg,transparent 0%,rgba(99,102,241,0.05) 100%); border-radius:16px; margin-top:3rem; }
+        .cta-btn { display:inline-flex; align-items:center; gap:0.75rem; padding:1rem 2rem; background:var(--accent); color:#fff; text-decoration:none; border-radius:100px; font-size:1rem; font-weight:600; transition:all 0.3s; margin-top:1rem; }
+        .cta-btn:hover { background:var(--accent-hover); transform:translateY(-2px); }
+        footer { padding:3rem 2rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; max-width:1000px; margin:0 auto; }
+        .footer-text { color:var(--text-muted); font-size:0.8rem; }
+        .footer-links { display:flex; gap:1.5rem; }
+        .footer-links a { color:var(--text-muted); text-decoration:none; font-size:0.8rem; transition:color 0.2s; }
+        .footer-links a:hover { color:var(--text); }
+        @media(max-width:768px) { .grid,.tier-grid { grid-template-columns:1fr; } .nav-links { display:none; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">tmai<span>.</span></a>
+    <div class="nav-links">
+        <a href="/#problem">The Problem</a>
+        <a href="/#compare">Compare</a>
+        <a href="/#services">What We Deliver</a>
+        <a href="/#why">Why TMAI</a>
+        <a href="mailto:ceo@tmai.ltd" class="nav-cta">Get in Touch</a>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="section-label">Product Overview</div>
+    <h1>Private AI infrastructure for businesses that <span class="gradient-text">need control</span>.</h1>
+    <p style="font-size:1.1rem; max-width:700px;">A turn-key AI appliance — hardware, models, APIs, and management — deployed in your environment. Your data stays under your control. Your AI usage becomes predictable.</p>
+</section>
+
+<section>
+    <h2>What We Actually Deliver</h2>
+    <p>Private AI Foundry provides managed, local-first AI infrastructure for businesses that require the power of AI without compromising system security, data sovereignty, or budget predictability.</p>
+
+    <div class="grid">
+        <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Agent Control Layer</h3>
+            <p>Memory boundaries, approval flows, action restrictions, audit logging, model routing, and workflow rules. Agents only do what you authorise.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔗</div>
+            <h3>Secure API Gateway</h3>
+            <p>REST APIs, Webhooks, MCP support, role-based access control, usage visibility, and tool allowlists. Your developers get a safe integration layer.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>Private AI Compute</h3>
+            <p>Dedicated local hardware running task-optimised models. Offline capable, no cloud dependency. Your data never leaves your environment.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔧</div>
+            <h3>Fully Managed Service</h3>
+            <p>Health checks, monitoring, security patching, model updates, system maintenance, and ongoing support. We handle the hard parts.</p>
+        </div>
+    </div>
+
+    <h2>5-Layer Technical Stack</h2>
+    <div class="stack">
+        <div class="stack-layer">
+            <div class="stack-num">5</div>
+            <div>
+                <h3>Developer & Admin Interface</h3>
+                <p>API docs, SDK examples, usage dashboard, knowledge-base management</p>
+            </div>
+        </div>
+        <div class="stack-layer">
+            <div class="stack-num">4</div>
+            <div>
+                <h3>Secure Integration Gateway</h3>
+                <p>REST API, MCP, webhooks, auth, rate limits, audit logging, approval flows</p>
+            </div>
+        </div>
+        <div class="stack-layer">
+            <div class="stack-num">3</div>
+            <div>
+                <h3>Agent Control Layer</h3>
+                <p>Agent profiles, prompts, tool policies, memory boundaries, model routing</p>
+            </div>
+        </div>
+        <div class="stack-layer">
+            <div class="stack-num">2</div>
+            <div>
+                <h3>Model Runtime</h3>
+                <p>Model serving, embeddings, retrieval pipelines, updates, monitoring</p>
+            </div>
+        </div>
+        <div class="stack-layer">
+            <div class="stack-num">1</div>
+            <div>
+                <h3>Private AI Compute</h3>
+                <p>Dedicated hardware (DGX Spark or comparable), GPU management, local inference</p>
+            </div>
+        </div>
+    </div>
+
+    <h2>Immediate ROI Use Cases</h2>
+    <div class="grid">
+        <div class="card">
+            <div class="card-icon">📄</div>
+            <h3>Private Document Intelligence</h3>
+            <p>Search, summarise, and query internal policies, SOPs, contracts — without exposing them to the internet. <strong style="color:#22c55e">10-15 hrs/week saved</strong> on document retrieval.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>Developer AI Endpoints</h3>
+            <p>Secure local AI endpoint for internal dashboards, CRM/ERP workflows, and automation pipelines. <strong style="color:#22c55e">3-5× acceleration</strong> in internal tool development.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🤖</div>
+            <h3>Operational Copilots</h3>
+            <p>Compliant, data-safe assistants for HR, IT, Finance, and Support — bounded by approved tools. <strong style="color:#22c55e">40-60% reduction</strong> in repetitive internal queries.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔍</div>
+            <h3>Local-First AI Gateway</h3>
+            <p>Local model by default, optional cloud fallback for approved cases. Policy-based routing with logs showing what stayed local.</p>
+        </div>
+    </div>
+
+    <h2>Packages</h2>
+    <div class="tier-grid">
+        <div class="tier">
+            <h3>Foundation</h3>
+            <p style="color:var(--text-muted); font-size:0.85rem;">For companies that want local AI chat, document search, and basic API access.</p>
+            <ul>
+                <li>One local AI appliance</li>
+                <li>Local LLM runtime</li>
+                <li>Document intelligence</li>
+                <li>Secure API & admin UI</li>
+                <li>Monthly maintenance</li>
+                <li>Limited support</li>
+            </ul>
+        </div>
+        <div class="tier featured">
+            <h3>Business Integration</h3>
+            <p style="color:var(--text-muted); font-size:0.85rem;">For companies with internal developers who want to integrate AI into workflows.</p>
+            <ul>
+                <li>Everything in Foundation</li>
+                <li>MCP/API/webhook layer</li>
+                <li>Multiple agent profiles</li>
+                <li>Role-based access</li>
+                <li>Tool approval workflows</li>
+                <li>Developer handover</li>
+                <li>More support hours</li>
+            </ul>
+        </div>
+        <div class="tier">
+            <h3>Managed Platform</h3>
+            <p style="color:var(--text-muted); font-size:0.85rem;">For larger or more sensitive clients requiring full governance.</p>
+            <ul>
+                <li>Everything in Business Integration</li>
+                <li>Enhanced audit logs</li>
+                <li>Backup / secondary appliance</li>
+                <li>Priority support & SLAs</li>
+                <li>Quarterly optimisation</li>
+                <li>Security review assistance</li>
+                <li>Advanced RAG</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2>Ready to take control of your AI?</h2>
+        <p>Let's discuss how Private AI Foundry can work for your business.</p>
+        <a href="mailto:ceo@tmai.ltd" class="cta-btn">Book a Discovery Call</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-text">© 2026 TMAI. Private AI infrastructure. South Africa.</div>
+    <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/tmai-dashboard.html">Dashboard</a>
+        <a href="mailto:ceo@tmai.ltd">Contact</a>
+    </div>
+</footer>
+
+</body>
+</html>

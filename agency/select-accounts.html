@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMAI — Welcome</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  :root {
+    --navy: #001A24; --gold: #FBAD1B; --teal: #008398; --dark-blue: #004657;
+    --bg: #f4f6f9; --surface: #fff; --border: #e2e6ec; --text: #1a2332; --muted: #6b7a8d;
+    --green: #22c55e; --red: #ef4444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* TOPBAR */
+  .topbar { background: var(--navy); color: #fff; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); }
+  .topbar-logo { font-size: 22px; font-weight: 800; color: var(--gold); }
+  .user-info { display: flex; align-items: center; gap: 10px; }
+  .user-avatar { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+  .user-name { font-size: 13px; font-weight: 600; }
+
+  /* MAIN */
+  .welcome-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 32px 80px; }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 340px; gap: 24px; margin-bottom: 32px; }
+
+  /* LEFT — Welcome + Account Selector */
+  .hero-left { }
+  .greeting { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .greeting span { color: var(--gold); }
+  .date-weather { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+  .date-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--navy);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  }
+  .weather-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    border: 1px solid #7dd3fc; border-radius: 10px;
+    padding: 8px 16px; font-size: 13px; font-weight: 600; color: #0369a1;
+  }
+  .weather-pill.rain { background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%); border-color: #94a3b8; color: #475569; }
+  .weather-pill.hot { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #fbbf24; color: #92400e; }
+
+  /* ACCOUNT LIST */
+  .account-list-wrap {
+    max-height: 380px; overflow-y: auto; border: 1px solid var(--border);
+    border-radius: 12px; margin-bottom: 16px; background: var(--bg);
+  }
+  .account-list-wrap::-webkit-scrollbar { width: 6px; }
+  .account-list-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .acct-row {
+    display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+    cursor: pointer; transition: background 0.15s; border-bottom: 1px solid #f0f0f0;
+  }
+  .acct-row:last-child { border-bottom: none; }
+  .acct-row:hover { background: #f8fafc; }
+  .acct-row.selected { background: #fffbeb; }
+  .acct-check {
+    width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    font-size: 13px; transition: all 0.15s;
+  }
+  .acct-row.selected .acct-check { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 800; }
+  .acct-logo {
+    width: 36px; height: 36px; border-radius: 8px; display: flex;
+    align-items: center; justify-content: center; font-weight: 800; font-size: 12px; color: #fff; flex-shrink: 0;
+  }
+  .acct-info { flex: 1; min-width: 0; }
+  .acct-name { font-size: 13px; font-weight: 700; color: var(--navy); }
+  .acct-meta { font-size: 11px; color: var(--muted); font-family: monospace; }
+  .acct-badge {
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .acct-badge.usd { background: #dbeafe; color: #1e40af; }
+  .acct-badge.zar { background: #d1fae5; color: #065f46; }
+  .select-all-row {
+    display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+    border-bottom: 2px solid var(--border); background: var(--surface);
+    cursor: pointer; font-size: 12px; font-weight: 700; color: var(--navy);
+    position: sticky; top: 0; z-index: 1;
+  }
+  .select-all-row:hover { background: #f8fafc; }
+
+  /* SELECTED CHIPS */
+  .selected-area { min-height: 40px; }
+  .selected-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;
+    padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--navy);
+  }
+  .chip-x {
+    width: 16px; height: 16px; border-radius: 50%; background: rgba(0,0,0,0.08);
+    display: flex; align-items: center; justify-content: center; font-size: 10px;
+    cursor: pointer; color: var(--muted);
+  }
+  .chip-x:hover { background: rgba(0,0,0,0.15); }
+  .no-selected { font-size: 12px; color: var(--muted); font-style: italic; padding: 10px 0; }
+
+  /* CONTINUE */
+  .continue-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+  .btn-continue {
+    background: var(--gold); color: var(--navy); border: none; border-radius: 10px;
+    padding: 14px 32px; font-size: 14px; font-weight: 800; cursor: pointer;
+    transition: all 0.2s; box-shadow: 0 4px 16px rgba(251,173,27,0.2);
+  }
+  .btn-continue:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(251,173,27,0.3); }
+  .btn-continue:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-skip { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 14px 24px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-skip:hover { border-color: var(--teal); color: var(--text); }
+  .count-text { font-size: 13px; color: var(--muted); }
+  .count-text strong { color: var(--gold); }
+
+  /* RIGHT — TMI TIM */
+  .hero-right { display: flex; flex-direction: column; align-items: center; }
+  .tim-stage {
+    width: 320px; height: 420px; border-radius: 20px; overflow: hidden; position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    transition: background 0.8s ease;
+  }
+  /* Weather backgrounds */
+  .tim-stage.sunny { background: linear-gradient(180deg, #87CEEB 0%, #E0F4FF 50%, #B8E6B8 100%); }
+  .tim-stage.cloudy { background: linear-gradient(180deg, #94a3b8 0%, #cbd5e1 50%, #e2e8f0 100%); }
+  .tim-stage.rainy { background: linear-gradient(180deg, #475569 0%, #64748b 50%, #94a3b8 100%); }
+  .tim-stage.windy { background: linear-gradient(180deg, #7dd3fc 0%, #bae6fd 50%, #e0f2fe 100%); }
+
+  .tim-sun {
+    position: absolute; top: 20px; right: 30px; width: 50px; height: 50px;
+    background: #fbbf24; border-radius: 50%; box-shadow: 0 0 30px rgba(251,191,36,0.5);
+    animation: sunPulse 3s ease-in-out infinite;
+  }
+  @keyframes sunPulse { 0%, 100% { box-shadow: 0 0 30px rgba(251,191,36,0.4); } 50% { box-shadow: 0 0 50px rgba(251,191,36,0.7); } }
+
+  .tim-rain-drops {
+    position: absolute; top: 0; left: 0; right: 0; height: 100%; pointer-events: none; overflow: hidden;
+  }
+  .tim-drop {
+    position: absolute; width: 2px; background: rgba(255,255,255,0.5); border-radius: 2px;
+    animation: rainFall linear infinite;
+  }
+  @keyframes rainFall { 0% { transform: translateY(-20px); opacity: 1; } 100% { transform: translateY(440px); opacity: 0; } }
+
+  .tim-clouds {
+    position: absolute; top: 15px; left: 20px; font-size: 36px; opacity: 0.7;
+    animation: cloudDrift 8s ease-in-out infinite;
+  }
+  @keyframes cloudDrift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(15px); } }
+
+  .tim-character {
+    width: 200px; height: 280px; object-fit: contain; position: relative; z-index: 2;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+    margin-bottom: 0;
+  }
+
+  /* Speech Bubble */
+  .tim-bubble {
+    background: var(--surface); border: 2px solid var(--border); border-radius: 16px;
+    padding: 14px 18px; position: absolute; top: 16px; left: 16px; right: 16px;
+    font-size: 13px; color: var(--text); line-height: 1.5; z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .tim-bubble::after {
+    content: ''; position: absolute; bottom: -10px; left: 40px;
+    width: 0; height: 0; border-left: 10px solid transparent;
+    border-right: 10px solid transparent; border-top: 10px solid var(--surface);
+  }
+  .tim-bubble-name { font-weight: 800; color: var(--navy); font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .tim-bubble-name .tim-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+
+  /* TIM NAME TAG */
+  .tim-name {
+    background: var(--navy); color: var(--gold); padding: 8px 20px;
+    border-radius: 0 0 16px 16px; font-size: 13px; font-weight: 800;
+    letter-spacing: 1px; text-align: center; width: 100%;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { order: -1; }
+    .tim-stage { width: 320px; height: 300px; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 8px 32px rgba(0,0,0,0.12); display: flex; flex-direction: column; align-items: center; justify-content: flex-end; transition: background 0.8s ease; }
+  }
+  @media (max-width: 600px) {
+    .welcome-wrap { padding: 20px 16px 80px; }
+    .greeting { font-size: 24px; }
+    .date-weather { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">TMAI</div>
+  <div class="user-info">
+    <img class="user-avatar" id="userAvatar" src="" alt="">
+    <div class="user-name" id="userName">Loading...</div>
+  </div>
+</div>
+
+<div class="welcome-wrap">
+  <div class="hero">
+
+    <!-- LEFT: Welcome + Selector -->
+    <div class="hero-left">
+      <div class="greeting">Welcome to <span>TMAI</span> Today</div>
+      <div class="date-weather">
+        <div class="date-pill">📅 <span id="todayDate">Loading...</span></div>
+        <div class="weather-pill" id="weatherPill">☀️ Loading weather...</div>
+      </div>
+
+      <div class="selector-section">
+        <div class="selector-label">📊 Select Your Accounts</div>
+        <div class="account-list-wrap" id="accountList"></div>
+
+        <div class="continue-row">
+          <div class="count-text"><strong id="countNum">0</strong> accounts selected</div>
+          <div style="display:flex;gap:12px">
+            <button class="btn-skip" onclick="skipToDash()">Skip</button>
+            <button class="btn-continue" id="btnContinue" onclick="goToDash()" disabled>Continue to Dashboard →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: TMI TIM -->
+    <div class="hero-right">
+      <div class="tim-stage sunny" id="timStage">
+        <div class="tim-sun" id="timSun"></div>
+        <div class="tim-clouds" id="timClouds" style="display:none">☁️</div>
+        <div class="tim-rain-drops" id="timRain" style="display:none"></div>
+
+        <div class="tim-bubble" id="timBubble">
+          <div class="tim-bubble-name"><span class="tim-dot"></span> TMI TIM</div>
+          <div id="timMsg">Good morning! 👋 I'm TMI TIM, your agency dashboard helper. Select your accounts and I'll help you navigate your performance data.</div>
+        </div>
+
+        <img class="tim-character" src="../assets/tmi-tim.jpg" alt="TMI TIM">
+      </div>
+      <div class="tim-name">TMI TIM</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const BRAND_COLORS = ['#FBAD1B','#008398','#004657','#22c55e','#8b5cf6','#ef4444','#f59e0b','#06b6d4'];
+
+// Real MCC accounts from a_TMI MDO MCC (9060186325)
+const MCC_ACCOUNTS = [
+  { id: '479-547-7014', name: 'Design Pickle', status: 'active', currency: 'USD' },
+  { id: '839-413-9093', name: 'Fitstop Fitness USA', status: 'active', currency: 'USD' },
+  { id: '326-076-5452', name: 'National Garage Door', status: 'active', currency: 'USD' },
+  { id: '627-100-9211', name: 'Pathway World LLC', status: 'active', currency: 'USD' },
+  { id: '150-441-4244', name: 'Pesalink', status: 'active', currency: 'USD' },
+  { id: '319-983-7831', name: 'Snap Kitchen', status: 'active', currency: 'USD' },
+  { id: '309-241-0619', name: 'Title Loans Online', status: 'active', currency: 'USD' },
+  { id: '103-949-8028', name: 'Tri Tool Inc.', status: 'active', currency: 'USD' },
+  { id: '371-856-6670', name: 'USE - USofE Brand', status: 'active', currency: 'USD' },
+  { id: '344-222-9723', name: 'eTech 360', status: 'active', currency: 'USD' },
+  { id: '181-823-3435', name: 'stswindows.com', status: 'active', currency: 'USD' },
+  { id: '441-913-3986', name: '1Voucher', status: 'active', currency: 'ZAR' },
+  { id: '525-406-8215', name: 'Allan Gray - Always On', status: 'active', currency: 'ZAR' },
+  { id: '880-813-4001', name: 'AURA SOS', status: 'active', currency: 'ZAR' },
+  { id: '945-707-8586', name: 'Best Of', status: 'active', currency: 'ZAR' },
+  { id: '696-714-5707', name: 'Blck Panda', status: 'active', currency: 'ZAR' },
+  { id: '595-351-8596', name: 'Currency Hub', status: 'active', currency: 'ZAR' },
+  { id: '437-985-2145', name: 'Deloitte', status: 'active', currency: 'ZAR' },
+  { id: '216-204-0364', name: 'Fut Afrique', status: 'active', currency: 'ZAR' },
+  { id: '326-247-2254', name: 'Football Academy', status: 'active', currency: 'ZAR' },
+  { id: '117-487-6049', name: 'Geddes Capital', status: 'active', currency: 'ZAR' },
+  { id: '501-068-9409', name: 'Spier Destination', status: 'active', currency: 'ZAR' },
+  { id: '393-809-2858', name: 'Spier Ecom', status: 'active', currency: 'ZAR' },
+  { id: '839-169-4125', name: 'Spier Wines Hotel', status: 'active', currency: 'ZAR' },
+  { id: '645-770-1262', name: 'Tri Tool Technologies', status: 'active', currency: 'ZAR' },
+  { id: '769-881-3896', name: 'Perifly', status: 'active', currency: 'ZAR' },
+  { id: '804-399-8866', name: 'Zapmed', status: 'active', currency: 'ZAR' },
+];
+
+// ============================================================
+// AUTH
+// ============================================================
+let session = null;
+function checkAuth() {
+  const raw = sessionStorage.getItem('tmai_agency_session');
+  if (!raw) { window.location.href = '/agency-login.html'; return; }
+  try {
+    session = JSON.parse(raw);
+    const hours = (new Date() - new Date(session.loginTime)) / (1000 * 60 * 60);
+    if (hours >= 24 || !session.email) {
+      sessionStorage.removeItem('tmai_agency_session');
+      window.location.href = '/agency-login.html';
+      return;
+    }
+    document.getElementById('userName').textContent = session.name;
+    document.getElementById('userAvatar').src = session.picture || '';
+  } catch (e) {
+    window.location.href = '/agency-login.html';
+  }
+}
+checkAuth();
+
+// ============================================================
+// DATE
+// ============================================================
+const now = new Date();
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+document.getElementById('todayDate').textContent = now.toLocaleDateString('en-ZA', options);
+
+// ============================================================
+// WEATHER (Cape Town)
+// ============================================================
+async function fetchWeather() {
+  try {
+    const resp = await fetch('https://wttr.in/Cape+Town?format=%C|%t|%h|%w&headers=0');
+    const text = await resp.text();
+    const parts = text.split('|');
+    const condition = (parts[0] || 'Sunny').trim();
+    const temp = (parts[1] || '').trim();
+    const humidity = (parts[2] || '').trim();
+    const wind = (parts[3] || '').trim();
+
+    const pill = document.getElementById('weatherPill');
+    const stage = document.getElementById('timStage');
+    const sun = document.getElementById('timSun');
+    const clouds = document.getElementById('timClouds');
+    const rain = document.getElementById('timRain');
+    const msg = document.getElementById('timMsg');
+
+    const condLower = condition.toLowerCase();
+    let icon = '☀️';
+    let stageClass = 'sunny';
+    let timGreeting = '';
+
+    if (condLower.includes('rain') || condLower.includes('drizzle') || condLower.includes('shower')) {
+      icon = '🌧️'; stageClass = 'rainy';
+      pill.className = 'weather-pill rain';
+      rain.style.display = 'block'; sun.style.display = 'none'; clouds.style.display = 'block';
+      createRainDrops();
+      timGreeting = "It's a rainy day in Cape Town! ☔ Perfect weather to stay in and review your campaign data. Let me help you find any issues.";
+    } else if (condLower.includes('cloud') || condLower.includes('overcast') || condLower.includes('fog')) {
+      icon = '☁️'; stageClass = 'cloudy';
+      pill.className = 'weather-pill rain';
+      sun.style.display = 'none'; clouds.style.display = 'block';
+      timGreeting = "Cloudy in Cape Town today — great day for some deep-dive analytics! ☁️ Pick your accounts and let's get started.";
+    } else if (condLower.includes('wind')) {
+      icon = '💨'; stageClass = 'windy';
+      pill.className = 'weather-pill';
+      sun.style.display = 'none'; clouds.style.display = 'block';
+      timGreeting = "Windy Cape Town! 💨 Just like the winds of change in your ad campaigns. Let me help you stay on track.";
+    } else {
+      icon = '☀️'; stageClass = 'sunny';
+      pill.className = 'weather-pill hot';
+      sun.style.display = 'block'; clouds.style.display = 'none';
+      timGreeting = "Beautiful day in Cape Town! ☀️ " + temp + " — let's make sure your campaigns are heating up too. Select your accounts to get started!";
+    }
+
+    stage.className = 'tim-stage ' + stageClass;
+    pill.innerHTML = icon + ' ' + temp + ' • ' + condition + ' • Cape Town';
+    msg.textContent = timGreeting;
+
+  } catch (e) {
+    // Fallback if API fails
+    document.getElementById('weatherPill').innerHTML = '☀️ 22°C • Sunny • Cape Town';
+    document.getElementById('timStage').className = 'tim-stage sunny';
+  }
+}
+fetchWeather();
+
+function createRainDrops() {
+  const container = document.getElementById('timRain');
+  container.innerHTML = '';
+  for (let i = 0; i < 30; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'tim-drop';
+    drop.style.left = Math.random() * 100 + '%';
+    drop.style.height = (15 + Math.random() * 20) + 'px';
+    drop.style.animationDuration = (0.6 + Math.random() * 0.6) + 's';
+    drop.style.animationDelay = Math.random() * 2 + 's';
+    container.appendChild(drop);
+  }
+}
+
+// ============================================================
+// ACCOUNT CHECKLIST
+// ============================================================
+let selectedAccounts = [];
+
+// Load previously selected
+if (session.selectedAccounts && session.selectedAccounts.length > 0) {
+  selectedAccounts = [...session.selectedAccounts];
+}
+
+function renderAccountList() {
+  const wrap = document.getElementById('accountList');
+  const allSelected = selectedAccounts.length === MCC_ACCOUNTS.length;
+
+  let html = '<div class="select-all-row" onclick="toggleAll()">' +
+    '<div class="acct-check">' + (allSelected ? '✓' : '') + '</div>' +
+    '<span>Select All (' + MCC_ACCOUNTS.length + ')</span></div>';
+
+  MCC_ACCOUNTS.forEach(function(a) {
+    const color = BRAND_COLORS[MCC_ACCOUNTS.indexOf(a) % BRAND_COLORS.length];
+    const initials = a.name.substring(0, 2).toUpperCase();
+    const isSel = selectedAccounts.some(function(s) { return s.id === a.id; });
+    const currClass = a.currency.toLowerCase();
+    html += '<div class="acct-row ' + (isSel ? 'selected' : '') + '" onclick="toggleAccount(\'' + a.id + '\')">' +
+      '<div class="acct-check">' + (isSel ? '✓' : '') + '</div>' +
+      '<div class="acct-logo" style="background:' + color + '">' + initials + '</div>' +
+      '<div class="acct-info">' +
+        '<div class="acct-name">' + a.name + '</div>' +
+        '<div class="acct-meta">' + a.id + '</div>' +
+      '</div>' +
+      '<div class="acct-badge ' + currClass + '">' + a.currency + '</div>' +
+    '</div>';
+  });
+
+  wrap.innerHTML = html;
+  updateCount();
+}
+
+function toggleAccount(id) {
+  const acct = MCC_ACCOUNTS.find(function(a) { return a.id === id; });
+  if (!acct) return;
+
+  const idx = selectedAccounts.findIndex(function(s) { return s.id === id; });
+  if (idx >= 0) {
+    selectedAccounts.splice(idx, 1);
+    timSay('Removed ' + acct.name + '.');
+  } else {
+    selectedAccounts.push({ id: acct.id, name: acct.name, source: 'mcc', currency: acct.currency });
+    if (selectedAccounts.length === 1) {
+      timSay('Great pick! ' + acct.name + ' is on your dashboard. Add more or continue when ready.');
+    } else {
+      timSay(selectedAccounts.length + ' accounts selected. Looking good!');
+    }
+  }
+  renderAccountList();
+}
+
+function toggleAll() {
+  if (selectedAccounts.length === MCC_ACCOUNTS.length) {
+    selectedAccounts = [];
+    timSay('All accounts cleared.');
+  } else {
+    selectedAccounts = MCC_ACCOUNTS.map(function(a) {
+      return { id: a.id, name: a.name, source: 'mcc', currency: a.currency };
+    });
+    timSay('All ' + MCC_ACCOUNTS.length + ' accounts selected!');
+  }
+  renderAccountList();
+}
+
+function updateCount() {
+  var count = document.getElementById('countNum');
+  var btn = document.getElementById('btnContinue');
+  count.textContent = selectedAccounts.length;
+  btn.disabled = selectedAccounts.length === 0;
+}
+
+renderAccountList();
+
+function timSay(text) {
+  document.getElementById('timMsg').textContent = text;
+}
+
+// ============================================================
+// NAVIGATE
+// ============================================================
+function goToDash() {
+  if (selectedAccounts.length === 0) return;
+  session.selectedAccounts = selectedAccounts;
+  session.accountsSelectedAt = new Date().toISOString();
+  sessionStorage.setItem('tmai_agency_session', JSON.stringify(session));
+  window.location.href = '/tmai-dashboard.html';
+}
+
+function skipToDash() {
+  session.selectedAccounts = [];
+  sessionStorage.setItem('tmai_agency_session', JSON.stringify(session));
+  window.location.href = '/tmai-dashboard.html';
+}
+</script>
+</body>
+</html>

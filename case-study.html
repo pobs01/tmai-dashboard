@@ -1,0 +1,573 @@
+<!DOCTYPE html><html class="scroll-smooth dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><title>Case Study — TMI Digital × TMAI | Cognitive Sovereignty in Action</title><meta name="description" content="How TMI Digital, a South African marketing agency, uses TMAI Glass Box infrastructure to manage 20+ client accounts with zero data leakage."><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Inter:wght@300..700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#A1A1AA",
+                        "surface-container": "#1E293B",
+                        "text-muted": "#94A3B8",
+                        "surface-container-lowest": "#0F172A",
+                        "surface-container-low": "#131C31",
+                        "indigo-accent": "#6366F1",
+                        "on-primary-container": "#CBD5E1",
+                        "on-secondary": "#0F172A",
+                        "on-secondary-container": "#0F172A",
+                        "inverse-primary": "#bec6e0",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed": "#acedff",
+                        "on-secondary-fixed": "#001f26",
+                        "background": "#0F172A",
+                        "on-tertiary-container": "#98805d",
+                        "on-tertiary-fixed-variant": "#574425",
+                        "surface-bright": "#1E293B",
+                        "secondary": "#00D1FF",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "border-subtle": "#1E293B",
+                        "inverse-surface": "#f8f9fa",
+                        "tertiary": "#FFFFFF",
+                        "tertiary-container": "#271901",
+                        "primary-container": "#1E293B",
+                        "surface-tint": "#565e74",
+                        "surface-container-high": "#2D3748",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-variant": "#1E293B",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed": "#fcdeb5",
+                        "on-primary-fixed": "#131b2e",
+                        "primary": "#FFFFFF",
+                        "on-tertiary-fixed": "#271901",
+                        "surface-dim": "#0F172A",
+                        "on-tertiary": "#0F172A",
+                        "primary-fixed": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "on-primary": "#0F172A",
+                        "on-background": "#F8FAFC",
+                        "secondary-container": "#00D1FF",
+                        "surface-white": "#1E293B",
+                        "surface": "#0F172A",
+                        "outline-variant": "#334155",
+                        "on-surface": "#F8FAFC",
+                        "error": "#ef4444",
+                        "error-container": "#450a0a",
+                        "outline": "#475569",
+                        "surface-container-highest": "#334155",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-error-container": "#fecaca"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "2px",
+                        "lg": "4px",
+                        "xl": "8px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-max": "1280px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "code": ["Inter"],
+                        "display-lg-mobile": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Space Grotesk"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    }catch(_e){}</script><style>
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer-hover:hover {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(0,209,255,0.05) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+</style></head><body class="bg-background text-on-background font-body-md selection:bg-secondary/30">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 glass-header border-b border-outline-variant" style="background: #1B1B1B;">
+<div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
+<a class='font-display-lg text-headline-sm font-bold text-primary tracking-tighter' href='/'>TMAI</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class='text-text-muted font-body-md hover:text-secondary transition-colors' href='/#problem'>Problem</a>
+<a class='text-text-muted font-body-md hover:text-secondary transition-colors' href='/#solution'>Solution</a>
+<a class='text-text-muted font-body-md hover:text-secondary transition-colors' href='/#compare'>Compare</a>
+<a class='text-text-muted font-body-md hover:text-secondary transition-colors' href='/#hardware'>Hardware</a>
+<a class='text-text-muted font-body-md text-secondary font-semibold' href='/case-study'>Case Study</a>
+<a class='text-text-muted font-body-md hover:text-secondary transition-colors' href='/#deliver'>What We Deliver</a>
+<a class='text-text-muted font-body-md hover:text-secondary transition-colors' href='/#why'>Why TMAI</a>
+</nav>
+<a href="mailto:ceo@tmai.ltd" class="bg-primary text-background px-6 py-3 font-label-md rounded-lg hover:bg-secondary hover:text-background transition-all active:opacity-80 inline-block">
+            Get in Touch
+        </a>
+</div>
+</header>
+<main class="pt-20">
+
+<!-- Hero -->
+<section class="py-section-gap" style="background: linear-gradient(135deg, #1B1B1B 0%, #135162 100%);">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="flex flex-wrap gap-3 mb-6">
+<a class='text-white font-body-sm hover:underline opacity-80' href='/'>← Back to TMAI</a>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<span class="bg-[#FBAD1B]/20 text-[#FBAD1B] border border-[#FBAD1B]/30 px-3 py-1 rounded-full font-label-md inline-block">CASE STUDY</span>
+<span class="text-white/40">|</span>
+<img src="tmi-logo.jpg" alt="TMI Digital" class="h-6 w-auto">
+<span class="text-white/40">× TMAI</span>
+</div>
+<h1 class="font-display-lg text-display-lg leading-[1.1] mb-6 text-white">
+                How <span class="text-[#FBAD1B]">TMI Digital</span> Runs 20+ Client Accounts on Private AI
+</h1>
+<p class="font-body-lg text-white/70 max-w-3xl mb-10">
+                TMI Digital is a South African digital marketing agency managing Google Ads, Meta, and analytics for clients across fintech, e-commerce, hospitality, and security sectors. They deployed TMAI Glass Box infrastructure to eliminate data leakage risks and gain full control over their AI-powered workflows.
+            </p>
+<div class="flex flex-wrap gap-8 text-white/60 font-body-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#FBAD1B] text-sm">business</span>
+<span>TMI Digital — Marketing Agency</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#FBAD1B] text-sm">location_on</span>
+<span>Cape Town, South Africa</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#FBAD1B] text-sm">memory</span>
+<span>ASUS Ascent GX10 — GB10 Grace Blackwell</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Key Metrics -->
+<section class="py-section-gap" style="background: #135162;">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
+<div>
+<div class="font-display-lg text-[#FBAD1B] mb-2">20+</div>
+<div class="font-label-md text-white/60 uppercase">Client Accounts</div>
+</div>
+<div>
+<div class="font-display-lg text-[#FBAD1B] mb-2">+$65K</div>
+<div class="font-label-md text-white/60 uppercase">Monthly Ad Spend Managed</div>
+</div>
+<div>
+<div class="font-display-lg text-[#FBAD1B] mb-2">4,838</div>
+<div class="font-label-md text-white/60 uppercase">Conversions Tracked</div>
+</div>
+<div>
+<div class="font-display-lg text-[#FBAD1B] mb-2">0</div>
+<div class="font-label-md text-white/60 uppercase">Data Breaches</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- The Challenge -->
+<section class="py-section-gap" id="challenge">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter items-stretch">
+<div class="bg-surface-container-low p-12 rounded-2xl border border-outline-variant flex flex-col">
+<span class="bg-[#FBAD1B]/10 text-[#FBAD1B] px-3 py-1 rounded-full font-label-md inline-block mb-6 w-fit">THE CHALLENGE</span>
+<h2 class="font-headline-md mb-8 text-primary">Client Data Can't Touch the Public Cloud</h2>
+<div class="space-y-6 flex-grow">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-error mt-1">warning</span>
+<p class="font-body-md text-text-muted"><strong class="text-primary">Sensitive Ad Accounts:</strong> Managing Google Ads for 20+ clients means handling campaign data, budget information, and performance metrics that competitors would pay to see.</p>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-error mt-1">warning</span>
+<p class="font-body-md text-text-muted"><strong class="text-primary">AI-Powered Workflows:</strong> Using AI for ad copy generation, campaign analysis, and reporting means feeding client data into LLMs — a non-starter with public cloud APIs.</p>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-error mt-1">warning</span>
+<p class="font-body-md text-text-muted"><strong class="text-primary">POPIA Compliance:</strong> South Africa's data protection law requires explicit consent for cross-border data transfers. Cloud AI APIs violate this by design.</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container p-12 rounded-2xl border border-secondary/30 flex flex-col">
+<span class="bg-[#008398]/10 text-[#008398] px-3 py-1 rounded-full font-label-md inline-block mb-6 w-fit">THE SOLUTION</span>
+<h2 class="font-headline-md mb-8 text-secondary">TMAI Glass Box — Deployed On-Premise</h2>
+<div class="space-y-6 flex-grow">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
+<p class="font-body-md text-on-primary-container"><strong class="text-primary">ASUS GX10 Supercomputer:</strong> NVIDIA GB10 Grace Blackwell chip with 128GB unified memory running local LLMs for ad copy, analysis, and reporting.</p>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
+<p class="font-body-md text-on-primary-container"><strong class="text-primary">Private Google Ads Gateway:</strong> All MCC API calls route through the TMAI stack — no data leaves the premises. Dashboard pulls live spend, conversions, and CPA.</p>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
+<p class="font-body-md text-on-primary-container"><strong class="text-primary">Glass Box Transparency:</strong> Every AI recommendation comes with attribution and confidence scores. Account managers know exactly why the AI suggested a change.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- How TMI Uses It -->
+<section class="py-section-gap bg-surface-container-low border-y border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-md mb-4 text-primary">How TMI Uses TMAI in Production</h2>
+<p class="font-body-lg text-text-muted max-w-2xl mx-auto">Real workflows running on Glass Box infrastructure — no data leaves the building.</p>
+</div>
+<!-- TMAI Brain Architecture -->
+<div class="mb-16">
+<div class="text-center mb-8">
+<h3 class="font-headline-md mb-4 text-primary">The TMAI Brain Architecture</h3>
+<p class="font-body-lg text-text-muted max-w-3xl mx-auto">Each department gets its own "Glass Room" — free to use external LLMs like Gemini for lightweight tasks, but all privacy-sensitive work routes through the TMAI Brain at the core.</p>
+</div>
+<div class="rounded-2xl overflow-hidden border border-outline-variant mb-8">
+<img src="tmai-brain-architecture.jpg" alt="TMAI Brain Architecture — Glass Rooms with central gatekeeper" class="w-full h-auto">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="p-8 rounded-xl bg-background border border-outline-variant">
+<h4 class="font-headline-sm text-secondary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">account_balance</span>
+The TMAI Brain (Core)
+</h4>
+<p class="font-body-sm text-text-muted mb-4">The central gatekeeper running on ASUS GX10 + NVIDIA GB10. All sensitive data, client PII, and proprietary prompts are processed here — never leaving the premises.</p>
+<ul class="space-y-2">
+<li class="flex items-center gap-2 text-sm text-text-muted"><span class="material-symbols-outlined text-secondary text-sm">check</span> Private LLM inference (Llama, Mistral)</li>
+<li class="flex items-center gap-2 text-sm text-text-muted"><span class="material-symbols-outlined text-secondary text-sm">check</span> Client data isolation &amp; encryption</li>
+<li class="flex items-center gap-2 text-sm text-text-muted"><span class="material-symbols-outlined text-secondary text-sm">check</span> Token usage control &amp; audit logging</li>
+<li class="flex items-center gap-2 text-sm text-text-muted"><span class="material-symbols-outlined text-secondary text-sm">check</span> Gatekeeper validation for all outputs</li>
+</ul>
+</div>
+<div class="p-8 rounded-xl bg-background border border-outline-variant">
+<h4 class="font-headline-sm text-indigo-accent mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">meeting_room</span>
+Glass Rooms (Departments)
+</h4>
+<p class="font-body-sm text-text-muted mb-4">Each department operates in its own glass room — transparent but isolated. Can use free/external LLMs (Gemini, etc.) for non-sensitive work, but sensitive tasks route through the Brain.</p>
+<ul class="space-y-2">
+<li class="flex items-center gap-2 text-sm text-text-muted"><span class="material-symbols-outlined text-indigo-accent text-sm">check</span> Free LLMs (Gemini) for lightweight tasks</li>
+<li class="flex items-center gap-2 text-sm text-text-muted"><span class="material-symbols-outlined text-indigo-accent text-sm">check</span> No peer-to-peer data sharing between rooms</li>
+<li class="flex items-center gap-2 text-sm text-text-muted"><span class="material-symbols-outlined text-indigo-accent text-sm">check</span> Projects move between departments via TMAI</li>
+<li class="flex items-center gap-2 text-sm text-text-muted"><span class="material-symbols-outlined text-indigo-accent text-sm">check</span> Sovereign lanes — complete data isolation</li>
+</ul>
+</div>
+</div>
+<div class="mt-8 p-6 rounded-xl bg-surface-container border border-secondary/20 text-center">
+<p class="font-body-md text-on-primary-container"><span class="text-secondary font-semibold">Secure Sovereign Lanes:</span> All inter-department project transfers route through the TMAI Brain — token usage, privacy, and security are controlled at the core. No room can access another room's data directly.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Use Case 1 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">ads_click</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Ad Copy Generation</h3>
+<p class="font-body-sm text-text-muted mb-4">Local LLM generates RSA headlines, descriptions, and extensions for each client's specific industry — without sending copy briefs to OpenAI.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Google Ads</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Meta Ads</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Local LLM</span>
+</div>
+</div>
+<!-- Use Case 2 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">analytics</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Campaign Analysis</h3>
+<p class="font-body-sm text-text-muted mb-4">AI analyses MCC performance data, identifies CPA spikes, budget misconfigurations, and optimization opportunities across all 20+ accounts.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Google Ads API</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">BigQuery</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Glass Box</span>
+</div>
+</div>
+<!-- Use Case 3 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">description</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Automated Reporting</h3>
+<p class="font-body-sm text-text-muted mb-4">Monthly client reports generated locally — spend, conversions, CPA, trend analysis — without exposing raw campaign data to third parties.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Templates</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Local LLM</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">HTML Reports</span>
+</div>
+</div>
+<!-- Use Case 4 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">smart_toy</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Client AI Copilots</h3>
+<p class="font-body-sm text-text-muted mb-4">Each account manager gets a private AI copilot that understands their specific clients, campaigns, and history — context that never leaves the TMAI box.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">RAG</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Vector DB</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Per-Account</span>
+</div>
+</div>
+<!-- Use Case 5 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">shield</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Compliance & Audit</h3>
+<p class="font-body-sm text-text-muted mb-4">Every AI interaction is logged with full attribution. When clients ask "why did the AI suggest this?" — the answer is a click away in the Glass Box audit trail.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">POPIA</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Audit Trail</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Confidence</span>
+</div>
+</div>
+<!-- Use Case 6 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">speed</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Real-Time Alerts</h3>
+<p class="font-body-sm text-text-muted mb-4">AI monitors spend anomalies, policy violations, and CPA drift across all accounts — alerting the team before clients notice the problem.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Monitoring</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Anomaly Detection</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Slack</span>
+</div>
+</div>
+<!-- Use Case 7 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">videocam</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Advanced Creative & Video</h3>
+<p class="font-body-sm text-text-muted mb-4">Generate ad creatives, social posts, and video scripts locally. AI produces on-brand visuals and motion copy without sending briefs to external platforms.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Video Scripts</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Ad Creatives</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Brand Consistency</span>
+</div>
+</div>
+<!-- Use Case 8 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">group_add</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Lead Generation</h3>
+<p class="font-body-sm text-text-muted mb-4">AI-powered lead scoring, outreach personalisation, and funnel automation — all running locally. Client lead data never touches third-party servers.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Lead Scoring</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Outreach</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Funnel Auto</span>
+</div>
+</div>
+<!-- Use Case 9 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">handshake</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">B2B Workflows & CRM</h3>
+<p class="font-body-sm text-text-muted mb-4">Dedicated B2B pipeline management — deal tracking, proposal generation, and client onboarding workflows powered by local AI.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">CRM Integration</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Deal Pipeline</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Proposals</span>
+</div>
+</div>
+<!-- Use Case 10 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">monitoring</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Analytics Integration</h3>
+<p class="font-body-sm text-text-muted mb-4">GA4, Meta Pixel, and conversion tracking setup assistance. AI configures tracking, validates events, and ensures data accuracy across all client properties.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">GA4</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Meta Pixel</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Validation</span>
+</div>
+</div>
+<!-- Use Case 11 -->
+<div class="p-8 rounded-xl bg-background border border-outline-variant hover:shadow-[0_0_20px_rgba(0,209,255,0.15)] transition-all duration-300 shimmer-hover">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-headline-sm">health_and_safety</span>
+</div>
+<h3 class="font-headline-sm mb-4 text-primary">Infrastructure Monitoring</h3>
+<p class="font-body-sm text-text-muted mb-4">24/7 health checks on the TMAI appliance itself — GPU utilisation, model performance, uptime alerts. The system watches itself so the team doesn't have to.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">GPU Health</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Uptime SLA</span>
+<span class="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded">Self-Healing</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Infrastructure Stack -->
+<section class="py-section-gap" id="stack">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-md mb-4 text-primary">TMI's Glass Box Stack</h2>
+<p class="font-body-lg text-text-muted max-w-2xl mx-auto">The physical and software infrastructure powering TMI's AI workflows.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Hardware -->
+<div class="p-8 rounded-2xl border border-outline-variant bg-surface-container-low">
+<h3 class="font-headline-sm text-secondary mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined">memory</span>
+Hardware
+</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">check</span>
+<div>
+<p class="font-body-sm text-primary font-semibold">ASUS Ascent GX10</p>
+<p class="font-body-sm text-text-muted">NVIDIA GB10 Grace Blackwell — 1 petaflop AI performance</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">check</span>
+<div>
+<p class="font-body-sm text-primary font-semibold">128GB Unified Memory</p>
+<p class="font-body-sm text-text-muted">CPU/GPU shared pool — runs 7B–70B parameter models</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">check</span>
+<div>
+<p class="font-body-sm text-primary font-semibold">400Gbps ConnectX7</p>
+<p class="font-body-sm text-text-muted">Enterprise networking — ready to cluster with additional nodes</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Software -->
+<div class="p-8 rounded-2xl border border-outline-variant bg-surface-container-low">
+<h3 class="font-headline-sm text-secondary mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined">code</span>
+Software
+</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">check</span>
+<div>
+<p class="font-body-sm text-primary font-semibold">Local LLM Inference</p>
+<p class="font-body-sm text-text-muted">Ollama / vLLM — Llama 3, Mistral, custom fine-tunes</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">check</span>
+<div>
+<p class="font-body-sm text-primary font-semibold">Private Vector Database</p>
+<p class="font-body-sm text-text-muted">Chroma / Qdrant — client knowledge bases, campaign history</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">check</span>
+<div>
+<p class="font-body-sm text-primary font-semibold">Google Ads API Gateway</p>
+<p class="font-body-sm text-text-muted">MCC 9060186325 — 20+ accounts, live data, no cloud relay</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Results -->
+<section class="py-section-gap bg-surface-container-lowest border-t border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-md mb-4 text-primary">Results</h2>
+<p class="font-body-lg text-text-muted max-w-2xl mx-auto">What TMI achieved by going Glass Box.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="p-8 rounded-xl bg-surface-container border border-outline-variant text-center shimmer-hover">
+<div class="material-symbols-outlined text-secondary text-headline-md mb-4">shield</div>
+<h3 class="font-headline-sm text-primary mb-3">Zero Data Leakage</h3>
+<p class="font-body-sm text-text-muted">Client campaign data, budgets, and performance metrics never leave the TMAI box. POPIA compliant by architecture, not by policy.</p>
+</div>
+<div class="p-8 rounded-xl bg-surface-container border border-outline-variant text-center shimmer-hover">
+<div class="material-symbols-outlined text-secondary text-headline-md mb-4">speed</div>
+<h3 class="font-headline-sm text-primary mb-3">10x Faster Workflows</h3>
+<p class="font-body-sm text-text-muted">Ad copy generation, campaign analysis, and reporting that used to take hours now runs in minutes — locally, with zero API costs.</p>
+</div>
+<div class="p-8 rounded-xl bg-surface-container border border-outline-variant text-center shimmer-hover">
+<div class="material-symbols-outlined text-secondary text-headline-md mb-4">account_balance</div>
+<h3 class="font-headline-sm text-primary mb-3">Fixed Monthly Cost</h3>
+<p class="font-body-sm text-text-muted">No per-token billing surprises. One GPU box powers all 20+ client accounts. Predictable infrastructure cost, maximum margin.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="py-section-gap bg-secondary text-background">
+<div class="max-w-container-max mx-auto px-margin-desktop text-center">
+<h2 class="font-display-lg text-display-lg mb-8">Want Results Like TMI?</h2>
+<p class="font-body-lg mb-12 max-w-2xl mx-auto opacity-90">Deploy your own Glass Box infrastructure. Your data stays on your premises. Your clients stay protected.</p>
+<div class="flex justify-center gap-6 flex-wrap">
+<a href="mailto:ceo@tmai.ltd" class="bg-background text-primary font-bold px-10 py-5 rounded-lg text-body-lg hover:scale-105 transition-transform shadow-2xl inline-block">
+                    Schedule a Demo
+                </a>
+<a class='border-2 border-background text-background font-bold px-10 py-5 rounded-lg text-body-lg hover:bg-background hover:text-secondary transition-all inline-block' href='/#hardware'>
+                    View Hardware
+                </a>
+</div>
+</div>
+</section>
+
+</main>
+<!-- Footer -->
+<footer class="border-t" style="background: #1B1B1B; border-color: #333;">
+<div class="py-section-gap px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center">
+<div class="mb-8 md:mb-0">
+<div class="flex items-center gap-3 mb-2">
+<span class="font-display-lg text-headline-sm font-bold text-white">TMAI</span>
+<span class="text-white/30">|</span>
+<img src="tmi-logo.jpg" alt="TMI Digital" class="h-6 w-auto">
+</div>
+<p class="text-white/50 font-body-sm max-w-xs">Precision Private LLMs for Enterprise.</p>
+</div>
+<div class="flex gap-12 mb-8 md:mb-0">
+<div class="flex flex-col gap-3">
+<span class="font-label-md text-[#FBAD1B] uppercase">Product</span>
+<a class='text-white/60 font-body-sm hover:text-[#FBAD1B] hover:underline' href='/#deliver'>Overview</a>
+<a class='text-white/60 font-body-sm hover:text-[#FBAD1B] hover:underline' href='/#hardware'>Hardware</a>
+<a class='text-white/60 font-body-sm hover:text-[#FBAD1B] hover:underline' href='/case-study'>Case Study</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-label-md text-[#FBAD1B] uppercase">Company</span>
+<a class='text-white/60 font-body-sm hover:text-[#FBAD1B] hover:underline' href='/#why'>About</a>
+<a class="text-white/60 font-body-sm hover:text-[#FBAD1B] hover:underline" href="mailto:ceo@tmai.ltd">Contact</a>
+</div>
+</div>
+<div>
+<a href="mailto:ceo@tmai.ltd" class="bg-[#008398] text-white px-6 py-3 font-label-md rounded-lg hover:bg-[#FBAD1B] hover:text-[#1B1B1B] transition-all inline-block">Get in Touch</a>
+</div>
+</div>
+</footer>
+</body></html>
