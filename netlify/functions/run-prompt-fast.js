@@ -58,41 +58,32 @@ function gadsSearch(accountId, token, query) {
           'developer-token': CONFIG.developer_token,
           'login-customer-id': CONFIG.mcc_id,
           'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(body),
         },
       },
       (res) => {
         let d = '';
         res.on('data', c => d += c);
         res.on('end', () => {
+          // Match the exact pattern from get-mcc-data.js
           try {
-            // searchStream returns newline-delimited JSON objects
+            const parsed = JSON.parse(d);
+            // searchStream returns [{results: [...]}, ...]
             const results = [];
-            for (const line of d.split('\n')) {
-              if (line.trim()) {
-                const parsed = JSON.parse(line);
-                if (Array.isArray(parsed.results)) results.push(...parsed.results);
-              }
-            }
-            if (results.length === 0 && d.trim()) {
-              // Might be a single JSON response (search endpoint)
-              const parsed = JSON.parse(d);
-              if (parsed.error) {
-                console.error('GAQL error:', JSON.stringify(parsed.error).substring(0, 300));
-              } else if (Array.isArray(parsed.results)) {
-                results.push(...parsed.results);
-              }
+            for (const batch of (parsed || [])) {
+              if (Array.isArray(batch.results)) results.push(...batch.results);
             }
             resolve(results);
           } catch (e) {
-            console.error('GAQL parse error:', e.message, d.substring(0, 300));
             resolve([]);
           }
         });
       }
     );
-    req.on('error', (e) => { console.error('GAQL request error:', e.message); resolve([]); });
+    req.on('error', (e) => resolve([]));
     req.setTimeout(20000, () => { req.destroy(); resolve([]); });
-    req.end(body);
+    req.write(body);
+    req.end();
   });
 }
 
