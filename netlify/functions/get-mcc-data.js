@@ -5,9 +5,9 @@ const https = require('https');
 
 // ── Credentials (stored as Netlify env vars in production) ──
 const CONFIG = {
-  client_id: process.env.GADS_CLIENT_ID || '952336408253-5km5qd6j40qm7mvl03n9eh505pnksqj4.apps.googleusercontent.com',
-  client_secret: process.env.GADS_CLIENT_SECRET || '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',
-  refresh_token: process.env.GADS_REFRESH_TOKEN || '1//090WfwXbFh-1DCgYIARAAGAkSNwF-L9IrbnAxfenvRVY6xGrIruBsqZ7GBZg8cPDKyjHrr38rZyp7oozrYJkKnAGfgcaHDgeeEF8',
+  client_id: process.env.GADS_CLIENT_ID || '434324143090-9s9jstsfbgf2pqfk0tfmtpj8rihhmgrp.apps.googleusercontent.com',
+  client_secret: process.env.GADS_CLIENT_SECRET || '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',
+  refresh_token: process.env.GADS_REFRESH_TOKEN || '1//097WSl6AW9cO6CgYIARAAGAkSNwF-L9IramkdHKb7jR6qU5ZxHrgYvhhh7CwbGxbGeG4rAJcdE5a8kL0Cf1Uxq5t3icD466b7bSQ',
   developer_token: process.env.GADS_DEV_TOKEN || 'A-OMf0hY_8TPc_bmUOzHoQ',
   mcc_id: '9060186325',
 };
