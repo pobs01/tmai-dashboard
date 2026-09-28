@@ -44,11 +44,11 @@ async function getAccessToken() {
   throw new Error('Token fail: ' + (res.raw || res.error));
 }
 
-function gadsSearchStream(accountId, token, query) {
+function gadsSearch(accountId, token, query) {
   const body = JSON.stringify({ query });
   return new Promise((resolve) => {
     const req = https.request(
-      `https://googleads.googleapis.com/v23/customers/${accountId}/googleAds:searchStream`,
+      `https://googleads.googleapis.com/v23/customers/${accountId}/googleAds:search`,
       {
         method: 'POST',
         headers: {
@@ -64,8 +64,7 @@ function gadsSearchStream(accountId, token, query) {
         res.on('end', () => {
           try {
             const parsed = JSON.parse(d);
-            const results = (parsed.results || []).flat();
-            resolve(results);
+            resolve(parsed.results || []);
           } catch (e) {
             resolve([]);
           }
@@ -82,12 +81,12 @@ async function fetchData(accountId, token, days) {
   const D = `LAST_${days}_DAYS`;
   
   // Single comprehensive query - campaigns with device, channel, budget
-  const campaigns = await gadsSearchStream(accountId, token,
+  const campaigns = await gadsSearch(accountId, token,
     `SELECT campaign.id, campaign.name, campaign.status, campaign.advertising_channel_type, campaign.advertising_channel_sub_type, campaign.bidding_strategy_type, campaign.target_roas, metrics.impressions, metrics.clicks, metrics.cost_micros, metrics.average_cpc, metrics.ctr, metrics.conversions, metrics.conversions_value, metrics.click_cost FROM campaign WHERE segments.date DURING ${D}`
   );
 
   // Conversion actions (quick lookup)
-  const conversions = await gadsSearchStream(accountId, token,
+  const conversions = await gadsSearch(accountId, token,
     `SELECT conversion_action.id, conversion_action.name, conversion_action.type, conversion_action.conversion_action_status FROM conversion_action`
   );
 
