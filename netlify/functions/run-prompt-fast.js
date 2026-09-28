@@ -225,7 +225,13 @@ function basicReport(name, id, dr, data) {
 }
 
 exports.handler = async (event) => {
-  const hdrs = { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json', 'Access-Control-Allow-Headers': 'Content-Type' };
+  const hdrs = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  };
+  if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers: hdrs, body: '' };
   if (event.httpMethod !== 'POST') return { statusCode: 405, headers: hdrs, body: JSON.stringify({ error: 'Method not allowed' }) };
 
   try {
