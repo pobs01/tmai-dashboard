@@ -46,9 +46,11 @@ async function getAccessToken() {
 
 function gadsSearch(accountId, token, query) {
   const body = JSON.stringify({ query });
+  // Format account ID with dashes: 8808134001 → 880-813-4001
+  const formattedId = accountId.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
   return new Promise((resolve) => {
     const req = https.request(
-      `https://googleads.googleapis.com/v23/customers/${accountId}/googleAds:search`,
+      `https://googleads.googleapis.com/v23/customers/${formattedId}/googleAds:search`,
       {
         method: 'POST',
         headers: {
@@ -64,14 +66,20 @@ function gadsSearch(accountId, token, query) {
         res.on('end', () => {
           try {
             const parsed = JSON.parse(d);
+            if (parsed.error) {
+              console.error('GAQL error:', JSON.stringify(parsed.error).substring(0, 200));
+              resolve([]);
+              return;
+            }
             resolve(parsed.results || []);
           } catch (e) {
+            console.error('GAQL parse error:', e.message, d.substring(0, 200));
             resolve([]);
           }
         });
       }
     );
-    req.on('error', (e) => resolve([]));
+    req.on('error', (e) => { console.error('GAQL request error:', e.message); resolve([]); });
     req.setTimeout(20000, () => { req.destroy(); resolve([]); });
     req.end(body);
   });
@@ -80,9 +88,9 @@ function gadsSearch(accountId, token, query) {
 async function fetchData(accountId, token, days) {
   const D = `LAST_${days}_DAYS`;
   
-  // Single comprehensive query - campaigns with device, channel, budget
+  // Single comprehensive query - campaigns with metrics
   const campaigns = await gadsSearch(accountId, token,
-    `SELECT campaign.id, campaign.name, campaign.status, campaign.advertising_channel_type, campaign.advertising_channel_sub_type, campaign.bidding_strategy_type, campaign.target_roas, metrics.impressions, metrics.clicks, metrics.cost_micros, metrics.average_cpc, metrics.ctr, metrics.conversions, metrics.conversions_value, metrics.click_cost FROM campaign WHERE segments.date DURING ${D}`
+    `SELECT campaign.id, campaign.name, campaign.status, campaign.advertising_channel_type, campaign.bidding_strategy_type, metrics.impressions, metrics.clicks, metrics.cost_micros, metrics.average_cpc, metrics.ctr, metrics.conversions, metrics.conversions_value FROM campaign WHERE segments.date DURING ${D}`
   );
 
   // Conversion actions (quick lookup)

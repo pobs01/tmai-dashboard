@@ -10,7 +10,7 @@ const CONFIG = {
   mcc_id: '9060186325',
 };
 
-function httpsRequest(url, options) {
+function httpsRequest(url, options, body) {
   return new Promise((resolve, reject) => {
     const req = https.request(url, options, (res) => {
       let data = '';
@@ -22,21 +22,17 @@ function httpsRequest(url, options) {
     });
     req.on('error', reject);
     req.setTimeout(30000, () => { req.destroy(); reject(new Error('Timeout')); });
+    if (body) req.write(body);
     req.end();
   });
 }
 
 async function getAccessToken() {
-  const body = new URLSearchParams({
-    client_id: CONFIG.client_id,
-    client_secret: CONFIG.client_secret,
-    refresh_token: CONFIG.refresh_token,
-    grant_type: 'refresh_token',
-  }).toString();
+  const body = `client_id=${encodeURIComponent(CONFIG.client_id)}&client_secret=${encodeURIComponent(CONFIG.client_secret)}&refresh_token=${encodeURIComponent(CONFIG.refresh_token)}&grant_type=refresh_token`;
   const res = await httpsRequest('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  });
+  }, body);
   if (res.data?.access_token) return res.data.access_token;
   throw new Error('Token fail: ' + JSON.stringify(res.data || res.raw));
 }
