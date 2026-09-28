@@ -17,11 +17,11 @@ function httpsRequest(url, options, body) {
       res.on('data', c => data += c);
       res.on('end', () => {
         try { resolve({ status: res.statusCode, data: JSON.parse(data) }); }
-        catch (e) { resolve({ status: res.statusCode, raw: data }); }
+        catch (e) { resolve({ status: res.statusCode, raw: data, error: true }); }
       });
     });
     req.on('error', reject);
-    req.setTimeout(30000, () => { req.destroy(); reject(new Error('Timeout')); });
+    req.setTimeout(15000, () => { req.destroy(); reject(new Error('Timeout')); });
     if (body) req.write(body);
     req.end();
   });

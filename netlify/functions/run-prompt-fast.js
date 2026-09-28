@@ -1,16 +1,34 @@
 // netlify/functions/run-prompt-fast.js
-// Fast version: single query + Gemini (fits 10s timeout)
+// Fast version: 2 queries + Gemini (fits 10s timeout on Netlify)
 const https = require('https');
 
 const CONFIG = {
-  client_id: process.env.GADS_CLIENT_ID || '952336408253-5km5qd6j40qm7mvl03n9eh505pnksqj4.apps.googleusercontent.com',
-  client_secret: process.env.GADS_CLIENT_SECRET || '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',
-  refresh_token: process.env.GADS_REFRESH_TOKEN || '1//090WfwXbFh-1DCgYIARAAGAkSNwF-L9IrbnAxfenvRVY6xGrIruBsqZ7GBZg8cPDKyjHrr38rZyp7oozrYJkKnAGfgcaHDgeeEF8',
+  client_id: process.env.GADS_CLIENT_ID || '434324143090-9s9jstsfbgf2pqfk0tfmtpj8rihhmgrp.apps.googleusercontent.com',
+  client_secret: process.env.GADS_CLIENT_SECRET || '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',
+  refresh_token: process.env.GADS_REFRESH_TOKEN || '1//097WSl6AW9cO6CgYIARAAGAkSNwF-L9IramkdHKb7jR6qU5ZxHrgYvhhh7CwbGxbGeG4rAJcdE5a8kL0Cf1Uxq5t3icD466b7bSQ',
   developer_token: process.env.GADS_DEV_TOKEN || 'A-OMf0hY_8TPc_bmUOzHoQ',
   mcc_id: '9060186325',
   llm_api_url: process.env.LLM_API_URL || 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent',
   llm_api_key: process.env.LLM_API_KEY || '',
 };
+
+// ── HTTPS helpers (exact pattern from get-mcc-data.js) ──
+function httpsRequest(url, options, body) {
+  return new Promise((resolve, reject) => {
+    const req = https.request(url, options, (res) => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        try { resolve({ status: res.statusCode, data: JSON.parse(data) }); }
+        catch (e) { resolve({ status: res.statusCode, data, error: true }); }
+      });
+    });
+    req.on('error', reject);
+    req.setTimeout(15000, () => { req.destroy(); reject(new Error('Timeout')); });
+    if (body) req.write(body);
+    req.end();
+  });
+}
 
 function httpsPost(url, opts, body) {
   return new Promise((resolve) => {
@@ -36,129 +54,60 @@ async function getAccessToken() {
     refresh_token: CONFIG.refresh_token,
     grant_type: 'refresh_token',
   }).toString();
-  const res = await httpsPost('https://oauth2.googleapis.com/token', {
+  const res = await httpsRequest('https://oauth2.googleapis.com/token', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': Buffer.byteLength(body) },
   }, body);
   if (res.data?.access_token) return res.data.access_token;
-  throw new Error('Token fail: ' + (res.raw || res.error));
+  throw new Error('Token fail: ' + JSON.stringify(res.data));
 }
 
-function gadsSearch(accountId, token, query) {
+// ── GAQL queries (exact pattern from get-mcc-data.js) ──
+async function queryAccount(accountId, token, query) {
   const body = JSON.stringify({ query });
-  // Format account ID with dashes: 8808134001 → 880-813-4001
-  const formattedId = accountId.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-  return new Promise((resolve) => {
-    const req = https.request(
-      `https://googleads.googleapis.com/v23/customers/${formattedId}/googleAds:searchStream`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'developer-token': CONFIG.developer_token,
-          'login-customer-id': CONFIG.mcc_id,
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(body),
-        },
+  const res = await httpsRequest(
+    `https://googleads.googleapis.com/v23/customers/${accountId}/googleAds:searchStream`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'developer-token': CONFIG.developer_token,
+        'login-customer-id': CONFIG.mcc_id,
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
       },
-      (res) => {
-        let d = '';
-        res.on('data', c => d += c);
-        res.on('end', () => {
-          // Match the exact pattern from get-mcc-data.js
-          try {
-            const parsed = JSON.parse(d);
-            // searchStream returns [{results: [...]}, ...]
-            const results = [];
-            for (const batch of (parsed || [])) {
-              if (Array.isArray(batch.results)) results.push(...batch.results);
-            }
-            resolve(results);
-          } catch (e) {
-            resolve([]);
-          }
-        });
-      }
-    );
-    req.on('error', (e) => resolve([]));
-    req.setTimeout(20000, () => { req.destroy(); resolve([]); });
-    req.write(body);
-    req.end();
-  });
+    },
+    body
+  );
+
+  if (res.error || res.status !== 200) return [];
+
+  const results = [];
+  for (const batch of (res.data || [])) {
+    for (const row of (batch.results || [])) {
+      results.push(row);
+    }
+  }
+  return results;
 }
 
 async function fetchData(accountId, token, days) {
-  const query = `
-    SELECT
-      campaign.id, campaign.name, campaign.status,
-      campaign.advertising_channel_type, campaign.bidding_strategy_type,
-      metrics.impressions, metrics.clicks, metrics.cost_micros,
-      metrics.average_cpc, metrics.ctr,
-      metrics.conversions, metrics.conversions_value
-    FROM campaign
-    WHERE segments.date DURING LAST_${days}_DAYS
-      AND campaign.status = ENABLED
-  `;
-
-  const body = JSON.stringify({ query });
-  const campaigns = await searchAccount(accountId, token, body);
+  // Campaigns query (same fields as get-mcc-data.js plus name/type)
+  const campaigns = await queryAccount(accountId, token,
+    `SELECT campaign.name, campaign.status, campaign.advertising_channel_type, metrics.impressions, metrics.clicks, metrics.cost_micros, metrics.ctr, metrics.conversions, metrics.conversions_value FROM campaign WHERE segments.date DURING LAST_${days}_DAYS`
+  );
 
   // Conversion actions
-  const convQuery = `
-    SELECT conversion_action.id, conversion_action.name,
-      conversion_action.type, conversion_action.conversion_action_status
-    FROM conversion_action
-  `;
-  const convBody = JSON.stringify({ query: convQuery });
-  const conversions = await searchAccount(accountId, token, convBody);
+  const conversions = await queryAccount(accountId, token,
+    `SELECT conversion_action.name, conversion_action.type, conversion_action.conversion_action_status FROM conversion_action`
+  );
 
   return { campaigns, conversions };
 }
 
-async function searchAccount(accountId, token, body) {
-  // Format account ID with dashes: 8808134001 → 880-813-4001
-  const formattedId = accountId.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-  
-  return new Promise((resolve) => {
-    const req = https.request(
-      `https://googleads.googleapis.com/v23/customers/${formattedId}/googleAds:searchStream`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'developer-token': CONFIG.developer_token,
-          'login-customer-id': CONFIG.mcc_id,
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(body),
-        },
-      },
-      (res) => {
-        let d = '';
-        res.on('data', c => d += c);
-        res.on('end', () => {
-          try {
-            const parsed = JSON.parse(d);
-            const results = [];
-            for (const batch of (parsed || [])) {
-              if (Array.isArray(batch.results)) results.push(...batch.results);
-            }
-            resolve(results);
-          } catch (e) {
-            resolve([]);
-          }
-        });
-      }
-    );
-    req.on('error', () => resolve([]));
-    req.setTimeout(20000, () => { req.destroy(); resolve([]); });
-    req.write(body);
-    req.end();
-  });
-}
-
+// ── Data formatting ──
 function formatData(data) {
   let o = '';
-  
   let totalSpend = 0, totalConv = 0, totalRev = 0, totalClicks = 0, totalImps = 0;
   for (const c of data.campaigns) {
     const m = c.metrics || {};
@@ -216,10 +165,8 @@ function formatData(data) {
     const share = totalSpend > 0 ? (spend / totalSpend * 100) : 0;
     o += `${cm.name || '?'} | ${cm.advertisingChannelType || '?'} | ${cm.status || '?'}\n`;
     o += `  Spend $${spend.toFixed(2)} (${share.toFixed(1)}%) | Clicks ${parseInt(m.clicks || 0)} | CTR ${ctr.toFixed(2)}% | CVR ${cvr.toFixed(2)}% | Convs ${convs.toFixed(1)} | Rev $${rev.toFixed(2)} | ROAS ${roas.toFixed(2)}x | CPA $${cpa.toFixed(2)}\n`;
-    if (cm.targetRoas) o += `  Target ROAS: ${(cm.targetRoas / 1000).toFixed(1)}x vs Actual ${roas.toFixed(2)}x\n`;
   }
 
-  // Conversions
   o += `\nCONVERSION ACTIONS (${data.conversions.length}):\n`;
   for (const c of data.conversions) {
     const ca = c.conversionAction || {};
@@ -229,25 +176,26 @@ function formatData(data) {
   return o;
 }
 
+// ── LLM call ──
 async function callLLM(prompt, account, accountId, dateRange, fmtData) {
   if (!CONFIG.llm_api_key) return null;
 
-  const usr = `You are a senior Google Ads performance analyst with 15+ years experience. Known for finding hidden waste, efficiency leaks, and strategic misalignments.
+  const usr = `You are a senior Google Ads performance analyst with 15+ years experience.
 
 RULES:
 1. COMPARE campaigns against account average and each other
 2. BENCHMARK against industry standards (Search CTR 2-5%, CVR 2-5%, ROAS 3-5x)
-3. CALCULATE derived metrics - share of wallet, budget efficiency, CPA per campaign
+3. CALCULATE derived metrics
 4. FLAG: 🔴 critical, 🟡 optimization, 🟢 working well
-5. BE SPECIFIC: name exact campaigns, state current vs target metrics, quantify impact
+5. BE SPECIFIC: name exact campaigns, quantify impact
 
 OUTPUT:
 1. EXECUTIVE SUMMARY - 3-4 lines
 2. ACCOUNT HEALTH GRADES - CTR, CVR, CPA, ROAS (A/B/C/D)
 3. CAMPAIGN-BY-CAMPAIGN - state, grade, finding, 1 recommendation
 4. CROSS-CAMPAIGN - best/worst spend, budget allocation
-5. BIDDING ASSESSMENT - strategy appropriateness, target vs actual
-6. CONVERSION & TRACKING - gaps, attribution
+5. BIDDING ASSESSMENT
+6. CONVERSION & TRACKING - gaps
 7. TOP 5 RECOMMENDATIONS - prioritized with impact
 
 DO NOT restate data, use filler, give generic advice.
@@ -286,6 +234,7 @@ function basicReport(name, id, dr, data) {
   return r;
 }
 
+// ── Handler ──
 exports.handler = async (event) => {
   const hdrs = {
     'Access-Control-Allow-Origin': '*',
