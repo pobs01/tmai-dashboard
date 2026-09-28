@@ -3,10 +3,10 @@
 const https = require('https');
 
 const CONFIG = {
-  client_id: process.env.GADS_CLIENT_ID || '',
-  client_secret: process.env.GADS_CLIENT_SECRET || '',
-  refresh_token: process.env.GADS_REFRESH_TOKEN || '',
-  developer_token: process.env.GADS_DEV_TOKEN || '',
+  client_id: process.env.GADS_CLIENT_ID || '952336408253-5km5qd6j40qm7mvl03n9eh505pnksqj4.apps.googleusercontent.com',
+  client_secret: process.env.GADS_CLIENT_SECRET || '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',
+  refresh_token: process.env.GADS_REFRESH_TOKEN || '1//090WfwXbFh-1DCgYIARAAGAkSNwF-L9IrbnAxfenvRVY6xGrIruBsqZ7GBZg8cPDKyjHrr38rZyp7oozrYJkKnAGfgcaHDgeeEF8',
+  developer_token: process.env.GADS_DEV_TOKEN || 'A-OMf0hY_8TPc_bmUOzHoQ',
   mcc_id: '9060186325',
   llm_api_url: process.env.LLM_API_URL || 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent',
   llm_api_key: process.env.LLM_API_KEY || '',
