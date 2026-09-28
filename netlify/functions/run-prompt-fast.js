@@ -50,7 +50,7 @@ function gadsSearch(accountId, token, query) {
   const formattedId = accountId.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
   return new Promise((resolve) => {
     const req = https.request(
-      `https://googleads.googleapis.com/v23/customers/${formattedId}/googleAds:search`,
+      `https://googleads.googleapis.com/v23/customers/${formattedId}/googleAds:searchStream`,
       {
         method: 'POST',
         headers: {
@@ -65,15 +65,26 @@ function gadsSearch(accountId, token, query) {
         res.on('data', c => d += c);
         res.on('end', () => {
           try {
-            const parsed = JSON.parse(d);
-            if (parsed.error) {
-              console.error('GAQL error:', JSON.stringify(parsed.error).substring(0, 200));
-              resolve([]);
-              return;
+            // searchStream returns newline-delimited JSON objects
+            const results = [];
+            for (const line of d.split('\n')) {
+              if (line.trim()) {
+                const parsed = JSON.parse(line);
+                if (Array.isArray(parsed.results)) results.push(...parsed.results);
+              }
             }
-            resolve(parsed.results || []);
+            if (results.length === 0 && d.trim()) {
+              // Might be a single JSON response (search endpoint)
+              const parsed = JSON.parse(d);
+              if (parsed.error) {
+                console.error('GAQL error:', JSON.stringify(parsed.error).substring(0, 300));
+              } else if (Array.isArray(parsed.results)) {
+                results.push(...parsed.results);
+              }
+            }
+            resolve(results);
           } catch (e) {
-            console.error('GAQL parse error:', e.message, d.substring(0, 200));
+            console.error('GAQL parse error:', e.message, d.substring(0, 300));
             resolve([]);
           }
         });
