@@ -88,19 +88,72 @@ function gadsSearch(accountId, token, query) {
 }
 
 async function fetchData(accountId, token, days) {
-  const D = `LAST_${days}_DAYS`;
-  
-  // Single comprehensive query - campaigns with metrics
-  const campaigns = await gadsSearch(accountId, token,
-    `SELECT campaign.id, campaign.name, campaign.status, campaign.advertising_channel_type, campaign.bidding_strategy_type, metrics.impressions, metrics.clicks, metrics.cost_micros, metrics.average_cpc, metrics.ctr, metrics.conversions, metrics.conversions_value FROM campaign WHERE segments.date DURING ${D}`
-  );
+  const query = `
+    SELECT
+      campaign.id, campaign.name, campaign.status,
+      campaign.advertising_channel_type, campaign.bidding_strategy_type,
+      metrics.impressions, metrics.clicks, metrics.cost_micros,
+      metrics.average_cpc, metrics.ctr,
+      metrics.conversions, metrics.conversions_value
+    FROM campaign
+    WHERE segments.date DURING LAST_${days}_DAYS
+      AND campaign.status = ENABLED
+  `;
 
-  // Conversion actions (quick lookup)
-  const conversions = await gadsSearch(accountId, token,
-    `SELECT conversion_action.id, conversion_action.name, conversion_action.type, conversion_action.conversion_action_status FROM conversion_action`
-  );
+  const body = JSON.stringify({ query });
+  const campaigns = await searchAccount(accountId, token, body);
+
+  // Conversion actions
+  const convQuery = `
+    SELECT conversion_action.id, conversion_action.name,
+      conversion_action.type, conversion_action.conversion_action_status
+    FROM conversion_action
+  `;
+  const convBody = JSON.stringify({ query: convQuery });
+  const conversions = await searchAccount(accountId, token, convBody);
 
   return { campaigns, conversions };
+}
+
+async function searchAccount(accountId, token, body) {
+  // Format account ID with dashes: 8808134001 → 880-813-4001
+  const formattedId = accountId.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+  
+  return new Promise((resolve) => {
+    const req = https.request(
+      `https://googleads.googleapis.com/v23/customers/${formattedId}/googleAds:searchStream`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'developer-token': CONFIG.developer_token,
+          'login-customer-id': CONFIG.mcc_id,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(body),
+        },
+      },
+      (res) => {
+        let d = '';
+        res.on('data', c => d += c);
+        res.on('end', () => {
+          try {
+            const parsed = JSON.parse(d);
+            const results = [];
+            for (const batch of (parsed || [])) {
+              if (Array.isArray(batch.results)) results.push(...batch.results);
+            }
+            resolve(results);
+          } catch (e) {
+            resolve([]);
+          }
+        });
+      }
+    );
+    req.on('error', () => resolve([]));
+    req.setTimeout(20000, () => { req.destroy(); resolve([]); });
+    req.write(body);
+    req.end();
+  });
 }
 
 function formatData(data) {
