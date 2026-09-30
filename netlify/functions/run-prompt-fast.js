@@ -8,7 +8,7 @@ const CONFIG = {
   refresh_token: process.env.GADS_REFRESH_TOKEN || '1//097WSl6AW9cO6CgYIARAAGAkSNwF-L9IramkdHKb7jR6qU5ZxHrgYvhhh7CwbGxbGeG4rAJcdE5a8kL0Cf1Uxq5t3icD466b7bSQ',
   developer_token: process.env.GADS_DEV_TOKEN || 'A-OMf0hY_8TPc_bmUOzHoQ',
   mcc_id: '9060186325',
-  llm_api_url: process.env.LLM_API_URL || 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent',
+  llm_api_url: process.env.LLM_API_URL || 'https://europe-west1-aiplatform.googleapis.com/v1/projects/273830948644/locations/europe-west1/publishers/google/models/gemini-2.5-flash:generateContent',
   llm_api_key: process.env.LLM_API_KEY || '',
 };
 

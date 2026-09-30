@@ -247,8 +247,37 @@ function formatData(data) {
   return o;
 }
 
+// Get OAuth2 token from Google Cloud metadata server (Cloud Run)
+async function getCloudToken() {
+  const http2 = require('http');
+  return new Promise((resolve) => {
+    const options = {
+      hostname: 'metadata.google.internal',
+      port: 80,
+      path: '/computeMetadata/v1/instance/service-accounts/default/token?audience=https://aiplatform.googleapis.com/',
+      headers: { 'Metadata-Flavor': 'Google' },
+    };
+    const req = http2.request(options, (res) => {
+      let d = '';
+      res.on('data', c => d += c);
+      res.on('end', () => {
+        try { resolve(JSON.parse(d).access_token); }
+        catch (e) { resolve(null); }
+      });
+    });
+    req.on('error', () => resolve(null));
+    req.setTimeout(5000, () => { req.destroy(); resolve(null); });
+    req.end();
+  });
+}
+
 async function callLLM(prompt, accountName, accountId, dateRange, fmtData, channel, category) {
-  if (!CONFIG.llm_api_key) return null;
+  // Try Google Cloud metadata auth first (Cloud Run), fall back to API key
+  let token = null;
+  if (process.env.GOOGLE_CLOUD_PROJECT || process.env.K_SERVICE) {
+    token = await getCloudToken();
+  }
+  if (!token && !CONFIG.llm_api_key) return null;
 
   const cleanCat = category.replace(/[^\w\s]/g, '').trim();
 
@@ -311,13 +340,25 @@ ${fmtData}`;
     generationConfig: { temperature: 0.2, maxOutputTokens: 8192 }
   });
 
-  const url = `${CONFIG.llm_api_url}?key=${CONFIG.llm_api_key}`;
-  console.log('Calling LLM:', url.split('?')[0]);
-  
+  let url, headers;
+  if (token) {
+    // Cloud Run: Vertex AI endpoint with OAuth Bearer token
+    url = 'https://europe-west1-aiplatform.googleapis.com/v1/projects/273830948644/locations/europe-west1/publishers/google/models/gemini-2.5-flash:generateContent';
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+  } else {
+    // Netlify fallback: API key
+    url = `${CONFIG.llm_api_url}?key=${CONFIG.llm_api_key}`;
+    headers = { 'Content-Type': 'application/json' };
+  }
+  console.log('Calling LLM:', url);
+
   // 8-second timeout so Netlify doesn't kill the function
   const res = await httpsPost(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
   }, body);
   
   console.log('LLM response status:', res.status, 'error:', res.error);
