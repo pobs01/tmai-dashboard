@@ -12,9 +12,9 @@ const CONFIG = {
   llm_api_key: process.env.LLM_API_KEY || '',
 };
 
-function httpsPost(url, opts, body) {
+function httpsPost(url, opts, body, timeout = 60000) {
   return new Promise((resolve) => {
-    const req = https.request(url, opts, (res) => {
+    const req = https.request(url, { ...opts, timeout }, (res) => {
       let d = '';
       res.on('data', c => d += c);
       res.on('end', () => {
@@ -23,8 +23,14 @@ function httpsPost(url, opts, body) {
       });
     });
     req.on('error', (e) => resolve({ status: 0, error: e.message }));
-    req.setTimeout(30000, () => { req.destroy(); resolve({ status: 0, error: 'timeout' }); });
-    if (body) req.write(body);
+    req.setTimeout(timeout, () => { req.destroy(); resolve({ status: 0, error: 'timeout' }); });
+    if (body) {
+      if (!opts.headers || !opts.headers['Content-Length']) {
+        opts.headers = opts.headers || {};
+        opts.headers['Content-Length'] = Buffer.byteLength(body);
+      }
+      req.write(body);
+    }
     req.end();
   });
 }
