@@ -310,25 +310,78 @@ OUTPUT STRUCTURE:
 
 DO NOT simply restate data, use filler phrases, give generic advice, or skip calculations.`;
 
-  const usr = `You are a senior Google Ads performance analyst with 15+ years of experience auditing high-spend ecommerce and lead gen accounts. You are known for finding hidden waste, efficiency leaks, and strategic misalignments that junior analysts miss.
+  const usr = `You are a senior Google Ads performance analyst producing HYPD-style deep audit reports. Your reports are data-rich, structured, and drive action.
+
+OUTPUT FORMAT — MATCH THIS EXACTLY:
+
+Google Ads Account Audit — [ACCOUNT NAME]
+Period: [DATE RANGE] | Currency: [from data]
+Account Classification: [Infer from data — ecommerce, hotel, lead gen, etc.]
+One-line summary: key metric + headline finding.
+
+1. STRUCTURE & SETTINGS
+- Campaign count, types, status breakdown
+- Campaign spend distribution table (Campaign | Type | Bidding | Spend | Convs | ROAS)
+- Key Structural Observations: 3-5 specific findings with data (budget issues, overlap, missing brand protection, inconsistent bidding across geos)
+- Network/Budget observations
+
+2. CONVERSION TRACKING
+- Conversion actions table (Action | Primary | Category | Status)
+- Critical Issues section with ⚠️ flags:
+  - Conversion duplication/splitting
+  - Primary action overload
+  - Zero-conversion primaries
+  - Lookback window inconsistencies
+- Impact of tracking gaps on Smart Bidding
+
+3. CAMPAIGN PERFORMANCE
+- Campaign Performance Overview table (Campaign | Type | Spend | Clicks | CTR | Convs | Revenue | ROAS | CPA)
+- Key Performance Findings: 4-6 specific insights ranking campaigns by efficiency
+- Highlight best/worst spend with exact numbers and percentages
+- Budget allocation efficiency analysis
+
+4. BIDDING & IMPRESSION SHARE
+- Bidding strategy appropriateness per campaign type
+- Impression Share analysis (if available) — IS %, Lost IS (Budget) %, Lost IS (Rank) %
+- Top of page IS assessment
+- Device performance breakdown (Device | Impressions | Clicks | Spend | CTR | Convs)
+
+5. ADS, ASSETS & EXTENSIONS
+- Asset group coverage and ad strength assessment
+- Extensions audit (sitelinks, callouts, structured snippets, price assets)
+- Gaps and opportunities
+
+6. PRIORITISED QUICK WINS
+
+🔴 High Priority — Act Now
+1. [Specific action]
+   - Current state: [exact metric]
+   - Finding: [specific issue]
+   - Recommendation: [exact step]
+   - Expected impact: [quantified — spend recovered, revenue uplift, % improvement]
+
+2. [Next action]
+   - Same structure...
+
+🟡 Medium Priority — Plan for Next Cycle
+3. [Action]
+   - Same structure...
+
+4. [Action]
+   - Same structure...
+
+🟢 Working Well (if any)
+5. [What's working]
+   - Evidence and scaling opportunity...
 
 RULES:
-1. COMPARE campaigns against account average and each other. Rank by efficiency.
-2. BENCHMARK against industry standards (Search CTR 2-5%, CVR 2-5%, ROAS 3-5x for ecommerce).
-3. CALCULATE derived metrics — share of wallet, budget efficiency, CPA per campaign.
-4. FLAG issues: 🔴 critical, 🟡 optimization, 🟢 working well.
-5. BE SPECIFIC: name exact campaigns, state current vs target metrics, quantify impact.
-
-OUTPUT STRUCTURE:
-1. EXECUTIVE SUMMARY — 3-4 lines. Biggest finding + biggest opportunity.
-2. ACCOUNT HEALTH GRADES — CTR, CVR, CPA, ROAS vs benchmarks (A/B/C/D grade).
-3. CAMPAIGN-BY-CAMPAIGN — Current state, grade, finding, 1 recommendation each.
-4. CROSS-CAMPAIGN — Best/worst spend, budget allocation efficiency.
-5. BIDDING ASSESSMENT — Strategy appropriateness, target vs actual.
-6. CONVERSION & TRACKING — Gaps, attribution issues.
-7. TOP 5 RECOMMENDATIONS — Prioritized with quantified impact.
-
-DO NOT restate data, use filler phrases, give generic advice, or skip calculations.
+- Every claim must be backed by specific numbers from the data
+- Use exact campaign names, metrics, and percentages
+- Benchmark against industry standards (Search CTR 2-5%, CVR 2-5%, ROAS 3-5x ecommerce)
+- Calculate derived metrics: share of wallet, budget efficiency, CPA per campaign
+- Grade campaigns: 🔴 Critical / 🟡 Optimization / 🟢 Working Well
+- No filler, no generic advice, no restating data without analysis
+- Minimum 2000 words, data tables included
 
 ---
 
@@ -343,7 +396,7 @@ ${fmtData}`;
 
   const body = JSON.stringify({
     contents: [{ role: 'user', parts: [{ text: usr }] }],
-    generationConfig: { temperature: 0.2, maxOutputTokens: 8192 }
+    generationConfig: { temperature: 0.2, maxOutputTokens: 16384 }
   });
 
   let url, headers;
