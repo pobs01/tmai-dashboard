@@ -324,7 +324,8 @@ ${fmtData}
 === END DATA ===
 
 OUTPUT INSTRUCTIONS:
-- **ADAPT THE STRUCTURE** to match the REPORT TYPE below
+- BRANDING: Start every report with a TMI Collective logo line and end with attribution footer
+- ADAPT THE STRUCTURE to match the REPORT TYPE below
 - Use markdown tables for all data
 - Every claim must cite specific numbers from the data
 - Use exact names, metrics, percentages
@@ -334,6 +335,7 @@ OUTPUT INSTRUCTIONS:
 === DYNAMIC REPORT STRUCTURES ===
 
 **IF REPORT TYPE is "Account Audit" or "Quick Health Check":**
+![TMI Collective Logo](https://tmicollective.com/logo.png)
 # ${accountName} — ${prompt || 'Account Audit'}
 **Period:** ${dateRange} | **Currency:** [from data]
 **Classification:** [Infer — ecommerce/hotel/lead gen/SaaS]
@@ -400,10 +402,13 @@ OUTPUT INSTRUCTIONS:
 - **Revenue opportunity:** $[val]
 - **Potential ROAS:** [projected]x
 - **Next 7 days priority:** [top 3 actions]
+---
+**Report produced by TMI Collective** | [tmicollective.com](https://tmicollective.com)
 
 ---
 
 **IF REPORT TYPE is "Keyword" or "Search Terms":**
+![TMI Collective Logo](https://tmicollective.com/logo.png)
 # ${accountName} — ${prompt}
 **Period:** ${dateRange} | **Currency:** [from data]
 
@@ -460,10 +465,13 @@ OUTPUT INSTRUCTIONS:
 **4. [Action]**
 ### 🟢 Scale
 **5. [Top keywords to increase bids/scale]**
+---
+**Report produced by TMI Collective** | [tmicollective.com](https://tmicollective.com)
 
 ---
 
 **IF REPORT TYPE is "Ad Group" or "Ads" or "Creative":**
+![TMI Collective Logo](https://tmicollective.com/logo.png)
 # ${accountName} — ${prompt}
 **Period:** ${dateRange} | **Currency:** [from data]
 
@@ -528,10 +536,13 @@ OUTPUT INSTRUCTIONS:
 **4. [Action]**
 ### 🟢 Scale
 **5. [Top-performing ad to scale]**
+---
+**Report produced by TMI Collective** | [tmicollective.com](https://tmicollective.com)
 
 ---
 
 **IF REPORT TYPE is "PMax" or "Performance Max":**
+![TMI Collective Logo](https://tmicollective.com/logo.png)
 # ${accountName} — ${prompt}
 **Period:** ${dateRange} | **Currency:** [from data]
 
@@ -597,10 +608,13 @@ OUTPUT INSTRUCTIONS:
 **4. [Action]**
 ### 🟢 Scale
 **5. [Top campaign/asset group to scale]**
+---
+**Report produced by TMI Collective** | [tmicollective.com](https://tmicollective.com)
 
 ---
 
 **IF REPORT TYPE is "Conversion" or "Tracking":**
+![TMI Collective Logo](https://tmicollective.com/logo.png)
 # ${accountName} — ${prompt}
 **Period:** ${dateRange} | **Currency:** [from data]
 
@@ -640,10 +654,13 @@ OUTPUT INSTRUCTIONS:
 ### 🟡 Next Cycle
 **3. [Action]**
 **4. [Action]**
+---
+**Report produced by TMI Collective** | [tmicollective.com](https://tmicollective.com)
 
 ---
 
 **IF REPORT TYPE is "Campaign" or "Bidding":**
+![TMI Collective Logo](https://tmicollective.com/logo.png)
 # ${accountName} — ${prompt}
 **Period:** ${dateRange} | **Currency:** [from data]
 
@@ -693,6 +710,8 @@ OUTPUT INSTRUCTIONS:
 **4. [Action]**
 ### 🟢 Scale
 **5. [Top campaign]**
+---
+**Report produced by TMI Collective** | [tmicollective.com](https://tmicollective.com)
 
 ---
 
