@@ -310,89 +310,172 @@ OUTPUT STRUCTURE:
 
 DO NOT simply restate data, use filler phrases, give generic advice, or skip calculations.`;
 
-  const usr = `You are a senior Google Ads performance analyst producing HYPD-style deep audit reports. Your reports are data-rich, structured, and drive action.
+  const usr = `You are a senior Google Ads performance analyst producing professional audit reports. Your output will be rendered in a dashboard, so EVERY section must be present and complete.
 
-OUTPUT FORMAT — MATCH THIS EXACTLY:
+ACCOUNT: ${accountName}
+ACCOUNT ID: ${accountId}
+CHANNEL: ${channel}
+DATE RANGE: ${dateRange}
+PROMPT TYPE: ${prompt || 'Deep performance audit'}
 
-Google Ads Account Audit — [ACCOUNT NAME]
-Period: [DATE RANGE] | Currency: [from data]
-Account Classification: [Infer from data — ecommerce, hotel, lead gen, etc.]
-One-line summary: key metric + headline finding.
+=== RAW DATA (USE ALL OF IT) ===
+${fmtData}
+=== END DATA ===
 
-1. STRUCTURE & SETTINGS
-- Campaign count, types, status breakdown
-- Campaign spend distribution table (Campaign | Type | Bidding | Spend | Convs | ROAS)
-- Key Structural Observations: 3-5 specific findings with data (budget issues, overlap, missing brand protection, inconsistent bidding across geos)
-- Network/Budget observations
+OUTPUT INSTRUCTIONS:
+- Write the FULL report with every section below
+- Use markdown tables for all data
+- Every claim must cite specific numbers from the data
+- Use exact campaign names, metrics, percentages
+- Benchmark: Search CTR 2-5%, CVR 2-5%, ROAS 3-5x (ecommerce), Shopping CTR 1-3%, PMAX CTR 0.5-1.5%
+- Grade: 🔴 Critical, 🟡 Needs work, 🟢 Strong
+- No filler words, no "I think", no "It appears" — be direct and authoritative
 
-2. CONVERSION TRACKING
-- Conversion actions table (Action | Primary | Category | Status)
-- Critical Issues section with ⚠️ flags:
-  - Conversion duplication/splitting
-  - Primary action overload
-  - Zero-conversion primaries
-  - Lookback window inconsistencies
-- Impact of tracking gaps on Smart Bidding
+=== REPORT STRUCTURE (OUTPUT EXACTLY THIS) ===
 
-3. CAMPAIGN PERFORMANCE
-- Campaign Performance Overview table (Campaign | Type | Spend | Clicks | CTR | Convs | Revenue | ROAS | CPA)
-- Key Performance Findings: 4-6 specific insights ranking campaigns by efficiency
-- Highlight best/worst spend with exact numbers and percentages
-- Budget allocation efficiency analysis
+# ${accountName} — Account Audit
 
-4. BIDDING & IMPRESSION SHARE
-- Bidding strategy appropriateness per campaign type
-- Impression Share analysis (if available) — IS %, Lost IS (Budget) %, Lost IS (Rank) %
-- Top of page IS assessment
-- Device performance breakdown (Device | Impressions | Clicks | Spend | CTR | Convs)
-
-5. ADS, ASSETS & EXTENSIONS
-- Asset group coverage and ad strength assessment
-- Extensions audit (sitelinks, callouts, structured snippets, price assets)
-- Gaps and opportunities
-
-6. PRIORITISED QUICK WINS
-
-🔴 High Priority — Act Now
-1. [Specific action]
-   - Current state: [exact metric]
-   - Finding: [specific issue]
-   - Recommendation: [exact step]
-   - Expected impact: [quantified — spend recovered, revenue uplift, % improvement]
-
-2. [Next action]
-   - Same structure...
-
-🟡 Medium Priority — Plan for Next Cycle
-3. [Action]
-   - Same structure...
-
-4. [Action]
-   - Same structure...
-
-🟢 Working Well (if any)
-5. [What's working]
-   - Evidence and scaling opportunity...
-
-RULES:
-- Every claim must be backed by specific numbers from the data
-- Use exact campaign names, metrics, and percentages
-- Benchmark against industry standards (Search CTR 2-5%, CVR 2-5%, ROAS 3-5x ecommerce)
-- Calculate derived metrics: share of wallet, budget efficiency, CPA per campaign
-- Grade campaigns: 🔴 Critical / 🟡 Optimization / 🟢 Working Well
-- No filler, no generic advice, no restating data without analysis
-- Minimum 2000 words, data tables included
+**Period:** ${dateRange} | **Currency:** [from data]
+**Classification:** [Infer — ecommerce/hotel/lead gen/SaaS]
+**Headline:** [One line — total spend, total ROAS, the single biggest finding]
 
 ---
 
-PROMPT: ${prompt || 'Deep performance audit with actionable specific recommendations'}
+## 1. Account Overview
 
-ACCOUNT: ${accountName} (${accountId})
-CHANNEL: ${channel}
-DATE RANGE: ${dateRange}
+| Metric | Value | Benchmark | Grade |
+|---|---|---|---|
+| Total Spend | $[value] | — | — |
+| Total Clicks | [value] | — | — |
+| Total Conversions | [value] | — | — |
+| Total Revenue | $[value] | — | — |
+| Account ROAS | [value]x | 3-5x | 🟢/🟡/🔴 |
+| Account CPA | $[value] | [target] | 🟢/🟡/🔴 |
+| Account CTR | [value]% | 2-5% (Search) | 🟢/🟡/🔴 |
+| Account CVR | [value]% | 2-5% | 🟢/🟡/🔴 |
 
-RAW ACCOUNT DATA:
-${fmtData}`;
+### Key Findings
+- [Finding 1 with exact numbers]
+- [Finding 2 with exact numbers]
+- [Finding 3 with exact numbers]
+
+---
+
+## 2. Campaign Performance
+
+**All campaigns ranked by ROAS efficiency (best first):**
+
+| Campaign | Type | Spend | % of Budget | Clicks | CTR% | Convs | Revenue | ROAS | CPA | Grade |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [name] | [type] | $[val] | [pct]% | [val] | [val] | [val] | $[val] | [val]x | $[val] | 🟢/🟡/🔴 |
+
+*(Include every campaign from the data)*
+
+### Performance Insights
+- **Best performer:** [Campaign] — [spend] → [ROAS]x, [convs] conversions. [Analysis of why it works]
+- **Worst performer:** [Campaign] — [spend] → [ROAS]x, 0 conversions. [Analysis of waste]
+- **Budget misalignment:** [Campaigns getting X% of budget but Y% of results vs campaigns getting Z% but W%]
+- **Geographic analysis:** [Compare performance across regions if data shows multiple markets]
+
+---
+
+## 3. Campaign Deep Dive
+
+*(For each campaign with spend — one subsection per campaign)*
+
+### [Campaign Name] — 🔴/🟡/🟢
+- **Spend:** $[val] ([pct]% of budget)
+- **Performance:** [convs] conversions, [revenue] revenue, [ROAS]x ROAS
+- **Efficiency:** $[CPA] CPA, [CTR]% CTR, [CVR]% CVR
+- **Assessment:** [2-3 sentences of specific analysis — what's working/not, comparison to account average, benchmark]
+- **Action:** [Specific recommendation with expected impact]
+
+---
+
+## 4. Structural Observations
+
+- [Observation 1: campaign overlap, missing brand protection, bidding inconsistencies]
+- [Observation 2: budget allocation issues]
+- [Observation 3: campaign status — paused/enabled/paused with potential]
+- [Observation 4: naming conventions, account organization]
+
+---
+
+## 5. Conversion Tracking & Measurement
+
+- **Conversion count:** [number of conversions, types from data]
+- **Tracking gaps:** [What's missing — conversion actions, attribution, value tracking]
+- **Impact:** [How tracking issues affect bidding and optimization]
+
+---
+
+## 6. Bidding Assessment
+
+- [Campaign] ([Strategy]): [Appropriate? Too aggressive? Too conservative? Why?]
+- [Campaign] ([Strategy]): [Analysis]
+- Overall bidding strategy recommendation
+
+---
+
+## 7. Assets & Creative
+
+- [Asset count, types from data]
+- [Coverage gaps — missing sitelinks, callouts, structured snippets]
+- [Ad strength assessment if available]
+- [Specific recommendations]
+
+---
+
+## 8. Prioritised Quick Wins
+
+### 🔴 Act Now — High Impact
+
+**1. [Specific action title]**
+- **Current state:** [exact metric/campaign]
+- **Problem:** [what's broken]
+- **Fix:** [exact step]
+- **Expected impact:** [quantified — $ saved, % ROAS improvement, conversions gained]
+
+**2. [Specific action title]**
+- **Current state:** [exact metric/campaign]
+- **Problem:** [what's broken]
+- **Fix:** [exact step]
+- **Expected impact:** [quantified]
+
+### 🟡 Plan for Next Cycle
+
+**3. [Specific action title]**
+- **Current state:** [exact metric]
+- **Problem:** [what's suboptimal]
+- **Fix:** [exact step]
+- **Expected impact:** [quantified]
+
+**4. [Specific action title]**
+- **Current state:** [exact metric]
+- **Problem:** [what's suboptimal]
+- **Fix:** [exact step]
+- **Expected impact:** [quantified]
+
+### 🟢 Scale What Works
+
+**5. [Campaign/strategy that's performing]**
+- **Current:** [spend, ROAS, conversions]
+- **Opportunity:** [why scaling this makes sense]
+- **Action:** [how to scale — budget increase, bid adjustment]
+- **Expected:** [projected uplift]
+
+---
+
+## Summary
+
+- **Total wasted spend (zero-conv campaigns):** $[value] ([pct]% of budget)
+- **Immediate savings available:** $[value]
+- **Revenue opportunity from scaling winners:** $[projected]
+- **Account potential ROAS:** [projected]x (from [current]x)
+- **Next 7 days priority:** [Top 3 actions]
+
+**END OF REPORT** — Include every section above. Do not skip sections. Use all the data provided.
+`;
 
   const body = JSON.stringify({
     contents: [{ role: 'user', parts: [{ text: usr }] }],
