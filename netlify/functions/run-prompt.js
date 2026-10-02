@@ -310,171 +310,410 @@ OUTPUT STRUCTURE:
 
 DO NOT simply restate data, use filler phrases, give generic advice, or skip calculations.`;
 
-  const usr = `You are a senior Google Ads performance analyst producing professional audit reports. Your output will be rendered in a dashboard, so EVERY section must be present and complete.
+  const usr = `You are a senior Google Ads performance analyst producing professional reports. Your output will be rendered in a dashboard, so every section must be present and complete.
 
 ACCOUNT: ${accountName}
 ACCOUNT ID: ${accountId}
 CHANNEL: ${channel}
 DATE RANGE: ${dateRange}
-PROMPT TYPE: ${prompt || 'Deep performance audit'}
+REPORT TYPE: ${prompt || 'Account Audit'}
+CATEGORY: ${category || 'General'}
 
 === RAW DATA (USE ALL OF IT) ===
 ${fmtData}
 === END DATA ===
 
 OUTPUT INSTRUCTIONS:
-- Write the FULL report with every section below
+- **ADAPT THE STRUCTURE** to match the REPORT TYPE below
 - Use markdown tables for all data
 - Every claim must cite specific numbers from the data
-- Use exact campaign names, metrics, percentages
-- Benchmark: Search CTR 2-5%, CVR 2-5%, ROAS 3-5x (ecommerce), Shopping CTR 1-3%, PMAX CTR 0.5-1.5%
-- Grade: 🔴 Critical, 🟡 Needs work, 🟢 Strong
+- Use exact names, metrics, percentages
+- Grade items: 🔴 Critical, 🟡 Needs work, 🟢 Strong
 - No filler words, no "I think", no "It appears" — be direct and authoritative
 
-=== REPORT STRUCTURE (OUTPUT EXACTLY THIS) ===
+=== DYNAMIC REPORT STRUCTURES ===
 
-# ${accountName} — Account Audit
-
+**IF REPORT TYPE is "Account Audit" or "Quick Health Check":**
+# ${accountName} — ${prompt || 'Account Audit'}
 **Period:** ${dateRange} | **Currency:** [from data]
 **Classification:** [Infer — ecommerce/hotel/lead gen/SaaS]
 **Headline:** [One line — total spend, total ROAS, the single biggest finding]
 
 ---
-
 ## 1. Account Overview
-
 | Metric | Value | Benchmark | Grade |
 |---|---|---|---|
-| Total Spend | $[value] | — | — |
-| Total Clicks | [value] | — | — |
-| Total Conversions | [value] | — | — |
-| Total Revenue | $[value] | — | — |
-| Account ROAS | [value]x | 3-5x | 🟢/🟡/🔴 |
-| Account CPA | $[value] | [target] | 🟢/🟡/🔴 |
-| Account CTR | [value]% | 2-5% (Search) | 🟢/🟡/🔴 |
-| Account CVR | [value]% | 2-5% | 🟢/🟡/🔴 |
-
+| [spend, clicks, convs, revenue, ROAS, CPA, CTR, CVR] | [values] | [benchmarks] | [grade] |
 ### Key Findings
-- [Finding 1 with exact numbers]
-- [Finding 2 with exact numbers]
-- [Finding 3 with exact numbers]
-
+- [3 findings with exact numbers]
 ---
-
 ## 2. Campaign Performance
-
-**All campaigns ranked by ROAS efficiency (best first):**
-
-| Campaign | Type | Spend | % of Budget | Clicks | CTR% | Convs | Revenue | ROAS | CPA | Grade |
+| Campaign | Type | Spend | % Budget | Clicks | CTR% | Convs | Revenue | ROAS | CPA | Grade |
 |---|---|---|---|---|---|---|---|---|---|---|
-| [name] | [type] | $[val] | [pct]% | [val] | [val] | [val] | $[val] | [val]x | $[val] | 🟢/🟡/🔴 |
-
-*(Include every campaign from the data)*
-
+[All campaigns ranked by ROAS]
 ### Performance Insights
-- **Best performer:** [Campaign] — [spend] → [ROAS]x, [convs] conversions. [Analysis of why it works]
-- **Worst performer:** [Campaign] — [spend] → [ROAS]x, 0 conversions. [Analysis of waste]
-- **Budget misalignment:** [Campaigns getting X% of budget but Y% of results vs campaigns getting Z% but W%]
-- **Geographic analysis:** [Compare performance across regions if data shows multiple markets]
-
+- **Best performer:** [with analysis]
+- **Worst performer:** [with analysis]
+- **Budget misalignment:** [specific numbers]
+- **Geographic analysis:** [if multiple markets]
 ---
-
 ## 3. Campaign Deep Dive
-
-*(For each campaign with spend — one subsection per campaign)*
-
+*(One subsection per active campaign)*
 ### [Campaign Name] — 🔴/🟡/🟢
 - **Spend:** $[val] ([pct]% of budget)
-- **Performance:** [convs] conversions, [revenue] revenue, [ROAS]x ROAS
-- **Efficiency:** $[CPA] CPA, [CTR]% CTR, [CVR]% CVR
-- **Assessment:** [2-3 sentences of specific analysis — what's working/not, comparison to account average, benchmark]
-- **Action:** [Specific recommendation with expected impact]
-
+- **Performance:** [convs], [revenue], [ROAS]x
+- **Efficiency:** $[CPA] CPA, [CTR]%, [CVR]%
+- **Assessment:** [2-3 sentences]
+- **Action:** [specific recommendation]
 ---
-
 ## 4. Structural Observations
-
-- [Observation 1: campaign overlap, missing brand protection, bidding inconsistencies]
-- [Observation 2: budget allocation issues]
-- [Observation 3: campaign status — paused/enabled/paused with potential]
-- [Observation 4: naming conventions, account organization]
-
+- [Overlap, brand protection, bidding inconsistencies, inactive campaigns]
 ---
-
 ## 5. Conversion Tracking & Measurement
-
-- **Conversion count:** [number of conversions, types from data]
-- **Tracking gaps:** [What's missing — conversion actions, attribution, value tracking]
-- **Impact:** [How tracking issues affect bidding and optimization]
-
+- **Conversions:** [count, types]
+- **Tracking gaps:** [what's missing]
+- **Impact:** [on bidding/optimization]
 ---
-
 ## 6. Bidding Assessment
-
-- [Campaign] ([Strategy]): [Appropriate? Too aggressive? Too conservative? Why?]
-- [Campaign] ([Strategy]): [Analysis]
-- Overall bidding strategy recommendation
-
+- [Per campaign strategy appropriateness]
 ---
-
 ## 7. Assets & Creative
-
-- [Asset count, types from data]
-- [Coverage gaps — missing sitelinks, callouts, structured snippets]
-- [Ad strength assessment if available]
-- [Specific recommendations]
-
+- [Coverage, gaps, recommendations]
 ---
-
 ## 8. Prioritised Quick Wins
-
 ### 🔴 Act Now — High Impact
-
-**1. [Specific action title]**
-- **Current state:** [exact metric/campaign]
-- **Problem:** [what's broken]
-- **Fix:** [exact step]
-- **Expected impact:** [quantified — $ saved, % ROAS improvement, conversions gained]
-
-**2. [Specific action title]**
-- **Current state:** [exact metric/campaign]
-- **Problem:** [what's broken]
+**1. [Action]**
+- **Current:** [metric]
+- **Problem:** [specific]
 - **Fix:** [exact step]
 - **Expected impact:** [quantified]
-
+**2. [Action]** — same structure
 ### 🟡 Plan for Next Cycle
-
-**3. [Specific action title]**
-- **Current state:** [exact metric]
-- **Problem:** [what's suboptimal]
-- **Fix:** [exact step]
-- **Expected impact:** [quantified]
-
-**4. [Specific action title]**
-- **Current state:** [exact metric]
-- **Problem:** [what's suboptimal]
-- **Fix:** [exact step]
-- **Expected impact:** [quantified]
-
+**3. [Action]** — same structure
+**4. [Action]** — same structure
 ### 🟢 Scale What Works
-
-**5. [Campaign/strategy that's performing]**
-- **Current:** [spend, ROAS, conversions]
-- **Opportunity:** [why scaling this makes sense]
-- **Action:** [how to scale — budget increase, bid adjustment]
-- **Expected:** [projected uplift]
+**5. [Campaign]** — same structure
+---
+## Summary
+- **Wasted spend:** $[val] ([pct]%)
+- **Immediate savings:** $[val]
+- **Revenue opportunity:** $[val]
+- **Potential ROAS:** [projected]x
+- **Next 7 days priority:** [top 3 actions]
 
 ---
 
-## Summary
+**IF REPORT TYPE is "Keyword" or "Search Terms":**
+# ${accountName} — ${prompt}
+**Period:** ${dateRange} | **Currency:** [from data]
 
-- **Total wasted spend (zero-conv campaigns):** $[value] ([pct]% of budget)
-- **Immediate savings available:** $[value]
-- **Revenue opportunity from scaling winners:** $[projected]
-- **Account potential ROAS:** [projected]x (from [current]x)
-- **Next 7 days priority:** [Top 3 actions]
+---
+## 1. Keyword Overview
+| Metric | Value |
+|---|---|
+| Total Keywords | [count]
+| Active Keywords | [count]
+| Total Impressions | [count]
+| Total Clicks | [count]
+| Total Spend | $[val]
+| Average CTR | [val]%
+| Average CVR | [val]%
+| Average ROAS | [val]x
 
-**END OF REPORT** — Include every section above. Do not skip sections. Use all the data provided.
+---
+## 2. Top Performing Keywords
+| Keyword | Match | Impressions | Clicks | CTR% | Spend | Convs | Revenue | ROAS | CPA | Grade |
+|---|---|---|---|---|---|---|---|---|---|---|
+[Rank by ROAS]
+
+---
+## 3. Wasting Keywords (High Spend, Zero Conversions)
+| Keyword | Match | Impressions | Clicks | CTR% | Spend | Convs | Grade |
+|---|---|---|---|---|---|---|---|
+[All zero-conversion keywords ranked by spend]
+
+---
+## 4. Match Type Analysis
+| Match Type | Keywords | Impressions | Clicks | CTR% | Spend | Convs | ROAS | Grade |
+|---|---|---|---|---|---|---|---|---|
+[Compare Exact vs Phrase vs Broad]
+
+---
+## 5. Quality Score Distribution
+| QS Range | Keywords | Spend | Share | Grade |
+|---|---|---|---|---|
+[QS 1-2, 3-4, 5-6, 7-8, 9-10]
+
+---
+## 6. Prioritised Actions
+### 🔴 Act Now
+**1. Pause/Remove Wasting Keywords**
+- **Current:** [count] keywords spending $[val] with 0 conversions
+- **Fix:** [specific]
+- **Expected impact:** [quantified]
+**2. Improve Low QS Keywords**
+- **Current:** [count] keywords with QS ≤ 3
+- **Fix:** [specific]
+- **Expected impact:** [quantified]
+### 🟡 Next Cycle
+**3. [Action]**
+**4. [Action]**
+### 🟢 Scale
+**5. [Top keywords to increase bids/scale]**
+
+---
+
+**IF REPORT TYPE is "Ad Group" or "Ads" or "Creative":**
+# ${accountName} — ${prompt}
+**Period:** ${dateRange} | **Currency:** [from data]
+
+---
+## 1. Ad Group Overview
+| Metric | Value |
+|---|---|
+| Total Ad Groups | [count]
+| Active Ad Groups | [count]
+| Total Impressions | [count]
+| Total Clicks | [count]
+| Total Spend | $[val]
+| Average CTR | [val]%
+| Average CVR | [val]%
+
+---
+## 2. Ad Group Performance
+| Ad Group | Campaign | Impressions | Clicks | CTR% | Spend | Convs | ROAS | Grade |
+|---|---|---|---|---|---|---|---|---|
+[Rank by ROAS]
+
+---
+## 3. Ad Strength Analysis
+| Strength | Ads | Impressions | Clicks | CTR% | Spend | Grade |
+|---|---|---|---|---|---|---|
+[Excellent, Good, Average, Poor, Below]
+
+---
+## 4. Ad Type Performance
+| Ad Type | Ads | Impressions | Clicks | CTR% | Spend | Convs | ROAS | Grade |
+|---|---|---|---|---|---|---|---|---|
+[RSAs, DSAs, Responsive Display, etc.]
+
+---
+## 5. Top Ads by Performance
+| Ad | Campaign | Ad Group | Impressions | Clicks | CTR% | Spend | Convs | Grade |
+|---|---|---|---|---|---|---|---|---|
+[Top 10 by clicks/conv]
+
+---
+## 6. Underperforming Ads
+| Ad | Campaign | Impressions | Clicks | CTR% | Spend | Convs | Grade |
+|---|---|---|---|---|---|---|---|
+[Ads with low CTR or high spend/0 conv]
+
+---
+## 7. Extensions Audit
+| Extension Type | Count | Status |
+|---|---|---|
+[Sitelinks, Callouts, Structured Snippets, etc.]
+
+---
+## 8. Prioritised Actions
+### 🔴 Act Now
+**1. [Action — replace/remove underperforming ads]**
+- **Current:** [specific metric]
+- **Fix:** [exact step]
+- **Expected impact:** [quantified]
+**2. [Action — add missing extensions]**
+### 🟡 Next Cycle
+**3. [Action]**
+**4. [Action]**
+### 🟢 Scale
+**5. [Top-performing ad to scale]**
+
+---
+
+**IF REPORT TYPE is "PMax" or "Performance Max":**
+# ${accountName} — ${prompt}
+**Period:** ${dateRange} | **Currency:** [from data]
+
+---
+## 1. PMax Overview
+| Metric | Value |
+|---|---|
+| Total PMax Campaigns | [count]
+| Asset Groups | [count]
+| Total Impressions | [count]
+| Total Clicks | [count]
+| Total Spend | $[val]
+| Conversions | [count]
+| Conversion Value | $[val]
+| Average ROAS | [val]x
+
+---
+## 2. PMax Campaign Performance
+| Campaign | Asset Group | Impressions | Clicks | CTR% | Spend | Convs | Conv Value | ROAS | Grade |
+|---|---|---|---|---|---|---|---|---|---|
+[Rank by ROAS]
+
+---
+## 3. Asset Group Analysis
+| Asset Group | Campaign | Assets | Impressions | Clicks | CTR% | Spend | Convs | ROAS | Grade |
+|---|---|---|---|---|---|---|---|---|---|
+[Compare asset groups]
+
+---
+## 4. Location Performance
+| Location | Impressions | Clicks | CTR% | Spend | Convs | ROAS | Grade |
+|---|---|---|---|---|---|---|---|
+[Top locations]
+
+---
+## 5. Audience Performance
+| Audience | Impressions | Clicks | CTR% | Spend | Convs | ROAS | Grade |
+|---|---|---|---|---|---|---|---|
+[Compare audiences]
+
+---
+## 6. Search Term Insights
+| Search Term | Impressions | Clicks | CTR% | Spend | Convs | Grade |
+|---|---|---|---|---|---|---|
+[Top search terms from PMax]
+
+---
+## 7. Asset Coverage
+| Asset Type | Count | Status |
+|---|---|---|
+[Images, Logos, Videos, Headlines, Descriptions]
+
+---
+## 8. Prioritised Actions
+### 🔴 Act Now
+**1. [Action]**
+- **Current:** [metric]
+- **Fix:** [step]
+- **Expected impact:** [quantified]
+**2. [Action]**
+### 🟡 Next Cycle
+**3. [Action]**
+**4. [Action]**
+### 🟢 Scale
+**5. [Top campaign/asset group to scale]**
+
+---
+
+**IF REPORT TYPE is "Conversion" or "Tracking":**
+# ${accountName} — ${prompt}
+**Period:** ${dateRange} | **Currency:** [from data]
+
+---
+## 1. Conversion Overview
+| Metric | Value |
+|---|---|
+| Conversion Actions | [count]
+| Primary Actions | [count]
+| Total Conversions | [count]
+| Total Value | $[val]
+| Average Value | $[val]
+
+---
+## 2. Conversion Actions
+| Action | Primary | Category | Conversions | Value | Avg Value | Status | Grade |
+|---|---|---|---|---|---|---|---|
+[All actions]
+
+---
+## 3. Critical Issues
+- ⚠️ [Issue 1]
+- ⚠️ [Issue 2]
+- ⚠️ [Issue 3]
+
+---
+## 4. Conversion by Campaign
+| Campaign | Conversions | Value | ROAS | Grade |
+|---|---|---|---|---|
+[By campaign]
+
+---
+## 5. Prioritised Actions
+### 🔴 Act Now
+**1. [Action]**
+**2. [Action]**
+### 🟡 Next Cycle
+**3. [Action]**
+**4. [Action]**
+
+---
+
+**IF REPORT TYPE is "Campaign" or "Bidding":**
+# ${accountName} — ${prompt}
+**Period:** ${dateRange} | **Currency:** [from data]
+
+---
+## 1. Campaign Overview
+| Metric | Value |
+|---|---|
+| Total Campaigns | [count]
+| Enabled | [count]
+| Paused | [count]
+| Total Spend | $[val]
+| Total Conversions | [count]
+| Total Revenue | $[val]
+| Average ROAS | [val]x
+
+---
+## 2. Campaign Performance
+| Campaign | Type | Status | Bidding | Budget | Impressions | Clicks | CTR% | Spend | Convs | ROAS | CPA | Grade |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+[All campaigns]
+
+---
+## 3. Bidding Analysis
+| Campaign | Current Strategy | Target | Actual | Grade |
+|---|---|---|---|---|
+[Compare target vs actual ROAS/CPA]
+
+---
+## 4. Budget Utilization
+| Campaign | Budget | Spend | Utilisation % | Grade |
+|---|---|---|---|---|
+[Show under/over spending]
+
+---
+## 5. Campaign Type Breakdown
+| Type | Campaigns | Spend | Convs | ROAS | Grade |
+|---|---|---|---|---|---|
+[Search, PMax, Display, Video, Shopping]
+
+---
+## 6. Prioritised Actions
+### 🔴 Act Now
+**1. [Action]**
+**2. [Action]**
+### 🟡 Next Cycle
+**3. [Action]**
+**4. [Action]**
+### 🟢 Scale
+**5. [Top campaign]**
+
+---
+
+**IF NONE OF THE ABOVE MATCH:**
+Adapt intelligently to the REPORT TYPE. Structure the report with:
+- Overview section with key metrics
+- Detailed data tables
+- Performance insights with specific numbers
+- Prioritised actions (🔴 Act Now, 🟡 Next Cycle, 🟢 Scale)
+- Summary with quantified impact
+
+**RULES FOR ALL REPORTS:**
+- Every claim cites specific numbers
+- Use exact names from the data
+- Grade items: 🔴 Critical, 🟡 Needs work, 🟢 Strong
+- Include data tables
+- Prioritised quick wins with quantified impact
+- No filler, no generic advice
+- Minimum 1500 words for audits, 800 words for specific reports
+
+**END OF REPORT**
 `;
 
   const body = JSON.stringify({
