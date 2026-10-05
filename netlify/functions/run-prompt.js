@@ -334,7 +334,7 @@ OUTPUT INSTRUCTIONS:
 
 === DYNAMIC REPORT STRUCTURES ===
 
-**IF REPORT TYPE is "Account Audit" or "Quick Health Check":**
+**IF REPORT TYPE is "Account Audit", "Quick Health Check", "Standard audit", or contains "audit":**
 ![TMI Collective Logo](https://tmicollective.com/logo.png)
 # ${accountName} — ${prompt || 'Account Audit'}
 **Period:** ${dateRange} | **Currency:** [from data]
