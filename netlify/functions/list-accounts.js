@@ -10,6 +10,18 @@ const CONFIG = {
   mcc_id: '9060186325',
 };
 
+// Known active accounts (update this list as accounts become active/inactive)
+const KNOWN_ACTIVE_ACCOUNTS = new Set([
+  '8808134001', // AURA SOS
+  '1174876049', // Geddes Capital
+  '8391694125', // Spier Hotel
+  '3938092858', // Spier E-commerce
+  '3199837831', // Snap Kitchen
+  '5010689409', // Spier Destination
+  '4379852145', // 1Voucher
+  '4035336692', // Tri Tool US Dollar
+]);
+
 function httpsRequest(url, options, body) {
   return new Promise((resolve, reject) => {
     const req = https.request(url, options, (res) => {
@@ -83,7 +95,7 @@ exports.handler = async (event) => {
         { id: '1039498028', name: 'Tri Tool Inc.', currency: 'USD', abbrev: 'TI' },
         { id: '1504414244', name: 'Pesalink', currency: 'USD', abbrev: 'PL' },
         { id: '8043998866', name: 'Zapmed', currency: 'ZAR', abbrev: 'ZM' },
-      ];
+      ].map(acc => ({ ...acc, active: KNOWN_ACTIVE_ACCOUNTS.has(acc.id) }));
       return {
         statusCode: 200,
         headers,
