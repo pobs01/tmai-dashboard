@@ -92,9 +92,20 @@ function gadsSearch(accountId, token, query) {
   });
 }
 
+function getCurrencySymbol(code) {
+  const map = { 'ZAR': 'R', 'USD': '$', 'GBP': '£', 'EUR': '€', 'JPY': '¥', 'AUD': 'A$', 'CAD': 'C$', 'CHF': 'CHF', 'INR': '₹', 'CNY': '¥', 'BRL': 'R$' };
+  return map[code] || code;
+}
+
 async function fetchAll(accountId, token, days) {
   const D = `LAST_${days}_DAYS`;
   const results = [];
+
+  // 0. Account Currency
+  const custRes = await gadsSearch(accountId, token, `SELECT customer.currency_code FROM customer LIMIT 1`);
+  const currency = custRes[0]?.customer?.currencyCode || 'USD';
+  const symbol = getCurrencySymbol(currency);
+  console.log('Currency:', currency, symbol);
 
   // 1. Campaigns (minimal working query - same as Network plus name/status)
   results.push(await gadsSearch(accountId, token,
@@ -139,10 +150,13 @@ async function fetchAll(accountId, token, days) {
     network: results[3] || [],
     assets: results[4] || [],
     negatives: results[5] || [],
+    currency,
+    symbol
   };
 }
 
-function formatData(data) {
+function formatData(data, symbol) {
+  symbol = symbol || '$';
   let o = '';
 
   // Account totals
@@ -161,7 +175,7 @@ function formatData(data) {
   const acctRoas = totalSpend > 0 ? (totalRev / totalSpend) : 0;
   const acctCpa = totalConv > 0 ? (totalSpend / totalConv) : 0;
 
-  o = `ACCOUNT TOTALS:\nSpend: $${totalSpend.toFixed(2)} | Clicks: ${totalClicks} | Impressions: ${totalImps} | CTR: ${acctCtr.toFixed(2)}% | Conversions: ${totalConv} | Revenue: $${totalRev.toFixed(2)} | ROAS: ${acctRoas.toFixed(2)}x | CPA: $${acctCpa.toFixed(2)} | CVR: ${acctCvr.toFixed(2)}%\n\n`;
+  o = `ACCOUNT TOTALS:\nSpend: ${symbol}${totalSpend.toFixed(2)} | Clicks: ${totalClicks} | Impressions: ${totalImps} | CTR: ${acctCtr.toFixed(2)}% | Conversions: ${totalConv} | Revenue: ${symbol}${totalRev.toFixed(2)} | ROAS: ${acctRoas.toFixed(2)}x | CPA: ${symbol}${acctCpa.toFixed(2)} | CVR: ${acctCvr.toFixed(2)}%\n\n`;
 
   // Aggregate by channel type
   const byChannel = {};
@@ -184,7 +198,7 @@ function formatData(data) {
     const roas = s.spend > 0 ? (s.rev / s.spend) : 0;
     const cpa = s.convs > 0 ? (s.spend / s.convs) : 0;
     const share = totalSpend > 0 ? (s.spend / totalSpend * 100) : 0;
-    o += `  ${ch} (${s.count} campaigns): Share ${share.toFixed(1)}% | Spend $${s.spend.toFixed(2)} | CTR ${ctr.toFixed(2)}% | Convs ${s.convs.toFixed(1)} | Rev $${s.rev.toFixed(2)} | ROAS ${roas.toFixed(2)}x | CPA $${cpa.toFixed(2)}\n`;
+    o += `  ${ch} (${s.count} campaigns): Share ${share.toFixed(1)}% | Spend ${symbol}${s.spend.toFixed(2)} | CTR ${ctr.toFixed(2)}% | Convs ${s.convs.toFixed(1)} | Rev ${symbol}${s.rev.toFixed(2)} | ROAS ${roas.toFixed(2)}x | CPA ${symbol}${cpa.toFixed(2)}\n`;
   }
 
   // Top 10 campaigns by spend (only those with spend > 0)
@@ -210,13 +224,13 @@ function formatData(data) {
     const cvr = parseInt(m.clicks || 0) > 0 ? (convs / parseInt(m.clicks || 0) * 100) : 0;
     const share = totalSpend > 0 ? (spend / totalSpend * 100) : 0;
     o += `${cm.name || '?'} | ${cm.advertisingChannelType || '?'} | ${cm.biddingStrategyType || '?'}\n`;
-    o += `  Spend $${spend.toFixed(2)} (${share.toFixed(1)}%) | Clicks ${parseInt(m.clicks || 0)} | CTR ${ctr.toFixed(2)}% | CVR ${cvr.toFixed(2)}% | Convs ${convs.toFixed(1)} | Rev $${rev.toFixed(2)} | ROAS ${roas.toFixed(2)}x | CPA $${cpa.toFixed(2)}\n`;
+    o += `  Spend ${symbol}${spend.toFixed(2)} (${share.toFixed(1)}%) | Clicks ${parseInt(m.clicks || 0)} | CTR ${ctr.toFixed(2)}% | CVR ${cvr.toFixed(2)}% | Convs ${convs.toFixed(1)} | Rev ${symbol}${rev.toFixed(2)} | ROAS ${roas.toFixed(2)}x | CPA ${symbol}${cpa.toFixed(2)}\n`;
     if (cm.targetRoas) o += `  Target ROAS: ${(cm.targetRoas / 1000).toFixed(1)}x vs Actual ${roas.toFixed(2)}x\n`;
   }
 
   // Zero-spend campaign count
   const zeroSpend = data.campaigns.length - active.length;
-  if (zeroSpend > 0) o += `\n⚠ ${zeroSpend} campaigns with $0 spend (inactive/paused/learning)\n`;
+  if (zeroSpend > 0) o += `\n⚠ ${zeroSpend} campaigns with ${symbol}0 spend (inactive/paused/learning)\n`;
 
   // Conversions
   o += `\nCONVERSION ACTIONS (${data.conversions.length}):\n`;
@@ -232,7 +246,7 @@ function formatData(data) {
     const spend = parseInt(m.costMicros || 0) / 1e6;
     const rev = parseFloat(m.conversionsValue || 0);
     const share = totalSpend > 0 ? (spend / totalSpend * 100) : 0;
-    o += `${v.segments?.device || '?'}: Share ${share.toFixed(1)}% | Spend $${spend.toFixed(2)} | Clicks ${parseInt(m.clicks || 0)} | Convs ${parseFloat(m.conversions || 0).toFixed(1)} | ROAS ${spend > 0 ? (rev / spend).toFixed(2) + 'x' : '?'} | CVR ${parseInt(m.clicks || 0) > 0 ? (parseFloat(m.conversions || 0) / parseInt(m.clicks || 0) * 100).toFixed(2) + '%' : '?'}\n`;
+    o += `${v.segments?.device || '?'}: Share ${share.toFixed(1)}% | Spend ${symbol}${spend.toFixed(2)} | Clicks ${parseInt(m.clicks || 0)} | Convs ${parseFloat(m.conversions || 0).toFixed(1)} | ROAS ${spend > 0 ? (rev / spend).toFixed(2) + 'x' : '?'} | CVR ${parseInt(m.clicks || 0) > 0 ? (parseFloat(m.conversions || 0) / parseInt(m.clicks || 0) * 100).toFixed(2) + '%' : '?'}\n`;
   }
 
   // Assets
@@ -242,10 +256,10 @@ function formatData(data) {
     const ag = a.assetGroup || {};
     const m = a.metrics || {};
     const spend = parseInt(m.costMicros || 0) / 1e6;
-    o += `${ag.name || '?'} | Strength: ${ag.adStrength || '?'} | Status: ${ag.status || '?'} | Spend: $${spend.toFixed(2)} | Convs: ${parseFloat(m.conversions || 0).toFixed(1)} | Rev: $${parseFloat(m.conversionsValue || 0).toFixed(2)}\n`;
+    o += `${ag.name || '?'} | Strength: ${ag.adStrength || '?'} | Status: ${ag.status || '?'} | Spend: ${symbol}${spend.toFixed(2)} | Convs: ${parseFloat(m.conversions || 0).toFixed(1)} | Rev: ${symbol}${parseFloat(m.conversionsValue || 0).toFixed(2)}\n`;
   }
   const zeroAssets = data.assets.length - activeAssets.length;
-  if (zeroAssets > 0) o += `  (${zeroAssets} asset groups with $0 spend)\n`;
+  if (zeroAssets > 0) o += `  (${zeroAssets} asset groups with ${symbol}0 spend)\n`;
 
   // Negatives
   o += `\nNEGATIVE KEYWORDS (${data.negatives.length} total)\n`;
@@ -277,7 +291,7 @@ async function getCloudToken() {
   });
 }
 
-async function callLLM(prompt, accountName, accountId, dateRange, fmtData, channel, category) {
+async function callLLM(prompt, accountName, accountId, dateRange, fmtData, channel, category, currency) {
   // Try Google Cloud metadata auth first (Cloud Run), fall back to API key
   let token = null;
   if (process.env.GOOGLE_CLOUD_PROJECT || process.env.K_SERVICE) {
@@ -316,6 +330,7 @@ ACCOUNT: ${accountName}
 ACCOUNT ID: ${accountId}
 CHANNEL: ${channel}
 DATE RANGE: ${dateRange}
+CURRENCY: ${currency}
 REPORT TYPE: ${prompt || 'Account Audit'}
 CATEGORY: ${category || 'General'}
 
@@ -770,13 +785,14 @@ Adapt intelligently to the REPORT TYPE. Structure the report with:
   return res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
 }
 
-function basicReport(name, id, dr, data) {
+function basicReport(name, id, dr, data, symbol) {
+  symbol = symbol || '$';
   let r = `# Report: ${name}\n\n**Account:** ${id} | **Period:** ${dr}\n\n`;
   r += `## Campaigns\n\n| Campaign | Type | Status | Spend | Clicks | Convs | ROAS |\n|----------|------|--------|-------|--------|-------|------|\n`;
   for (const c of data.campaigns || []) {
     const cm = c.campaign || {}; const m = c.metrics || {};
     const sp = parseInt(m.costMicros||0)/1e6; const rv = parseFloat(m.conversionsValue||0);
-    r += `| ${cm.name||'?'} | ${cm.advertisingChannelType||'?'} | ${cm.status||'?'} | $${sp.toFixed(2)} | ${parseInt(m.clicks||0)} | ${parseFloat(m.conversions||0)} | ${(sp>0?(rv/sp).toFixed(2):'0')}x |\n`;
+    r += `| ${cm.name||'?'} | ${cm.advertisingChannelType||'?'} | ${cm.status||'?'} | ${symbol}${sp.toFixed(2)} | ${parseInt(m.clicks||0)} | ${parseFloat(m.conversions||0)} | ${(sp>0?(rv/sp).toFixed(2):'0')}x |\n`;
   }
   r += `\n*Generated: ${new Date().toISOString().split('T')[0]}*\n`;
   return r;
@@ -798,10 +814,10 @@ exports.handler = async (event) => {
 
     console.log('Fetched: campaigns=' + data.campaigns.length + ' conversions=' + data.conversions.length + ' assets=' + data.assets.length);
 
-    const fmt = formatData(data);
-    let report = await callLLM(prompt, account, accountId, dateRange, fmt, channel || 'Google Ads', category || '');
+    const fmt = formatData(data, data.symbol);
+    let report = await callLLM(prompt, account, accountId, dateRange, fmt, channel || 'Google Ads', category || '', data.currency);
 
-    if (!report) report = basicReport(account, accountId, dateRange, data);
+    if (!report) report = basicReport(account, accountId, dateRange, data, data.symbol);
 
     return {
       statusCode: 200,
