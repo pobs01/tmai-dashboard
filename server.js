@@ -16,6 +16,12 @@ const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost:' + PORT);
   const pathname = url.pathname;
 
+  // CORS + preflight (needed for cross-origin calls that carry the x-tmi-key header)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-tmi-key');
+  if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
+
   if (pathname === '/health') return json(res, 200, { ok: true, time: new Date().toISOString() });
   if (pathname === '/report') return serveStatic('report.html', res);
   if (pathname === '/prompts') return serveStatic('prompts.html', res);
@@ -49,6 +55,12 @@ function json(res, status, obj) {
 }
 
 function emulateFunction(fnName, req, res) {
+  // API key gate: every function call must present x-tmi-key matching TMI_API_KEY (fail closed)
+  const expected = process.env.TMI_API_KEY || '';
+  const provided = req.headers['x-tmi-key'] || '';
+  if (!expected || provided !== expected) {
+    return json(res, 401, { error: 'Unauthorized: missing or invalid x-tmi-key' });
+  }
   const fnPath = path.join(functionsDir, fnName + '.js');
   if (!fs.existsSync(fnPath)) return json(res, 404, { error: 'Function not found: ' + fnName });
 
