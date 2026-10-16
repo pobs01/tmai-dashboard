@@ -15,7 +15,8 @@ const FALLBACK_API_KEY = '9b3f3a3526d9082b3f040b7ade69e92e7858e72ae3e199b6';
 function apiOk(provided) {
   provided = (provided || '').trim();
   const envKey = (process.env.TMI_API_KEY || '').trim();
-  return provided.length > 0 && (provided === envKey || provided === FALLBACK_API_KEY);
+  const envValid = envKey.length >= 16; // ignore short placeholders like '***'
+  return provided.length > 0 && (provided === FALLBACK_API_KEY || (envValid && provided === envKey));
 }
 
 const server = http.createServer((req, res) => {
